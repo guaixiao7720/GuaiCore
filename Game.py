@@ -3,7 +3,7 @@ import copy
 import pygame
 import threading
 
-import Class.Scene
+import Obj.Scene
 import Tools.Setting
 from SceneRun import SceneRun
 
@@ -29,7 +29,7 @@ class Game:
             }
 
 
-        self.main_scene = Class.Scene.Scene(self, "main")
+        self.main_scene = Obj.Scene.Scene(self, "main")
         self.main_scene.is_running = True
         self.main_scene.view = True
 

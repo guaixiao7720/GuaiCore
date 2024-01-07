@@ -1,8 +1,8 @@
 import pygame
-import Class.Scene
+import Obj.Scene
 
 
-class Interaction(Class.Scene.Scene):
+class Interaction(Obj.Scene.Scene):
     def is_clicked(self, num: int):
         mouse_pos_boolx = self.image.get_size()[0] + self.position[0] > pygame.mouse.get_pos()[0] > self.position[0]
         mouse_pos_booly = self.image.get_size()[1] + self.position[1] > pygame.mouse.get_pos()[1] > self.position[1]

@@ -1,11 +1,14 @@
 import json
+import os
+
+PATH = os.path.abspath(".") + "/"
 
 
 def load(game: str):
     """读取GuaiCore设置文件"""
 
     # 后面需要修改 当前仅测试用
-    setting = open(f".\\setting\\{game}.json", "r")
+    setting = open(f"{PATH}setting/{game}.json", "r")
 
     str1 = setting.readlines()[0]
     setting.close()
