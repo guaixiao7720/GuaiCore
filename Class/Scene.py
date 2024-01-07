@@ -15,7 +15,7 @@ class Scene(pygame.sprite.Sprite):
         self.name = name
         self.view = False
         self.is_running = True
-        self.position = (0, 0)
+        self.position = [0, 0]
         self.parent_scene = None
 
         # self.model 是 当前的造型 pygame.Surface self.models 是 造型字典
@@ -49,6 +49,7 @@ class Scene(pygame.sprite.Sprite):
                 self.game.screen.blit(self.image, self.position)
             else:
                 self.parent_scene.image.blit(self.image, self.position)
+
         i = 0
         while i < len(self.tree):
             if self.tree[i].view:
