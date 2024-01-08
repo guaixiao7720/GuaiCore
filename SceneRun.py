@@ -19,6 +19,7 @@ class SceneRun(threading.Thread):  # 继承父类threading.Thread
     def run(self):
         while self.game.running:
             self.game.screen.fill(self.game.bg_color)
+            self.game.main_scene.draw()
 
             if self.system_name == "Windows":
                 pygame.display.flip()
