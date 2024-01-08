@@ -4,6 +4,7 @@ import pygame
 import threading
 
 import Obj.Scene
+import Obj.Sprite
 import Tools.Setting
 from SceneRun import SceneRun
 

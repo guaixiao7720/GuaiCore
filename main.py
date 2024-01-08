@@ -1,13 +1,13 @@
+
+import os
+import pygame
+
+import Obj.Interface.Interaction
+import Obj.Scene
+import Obj.Sprite
+import Game
+
 if __name__ == "__main__":
-    import os
-
-    import pygame
-
-    import Obj.Interface.Interaction
-    import Obj.Scene
-    import Game
-    import Obj.Sprite
-
     pygame.init()
 
     class test(Obj.Sprite.Sprite, Obj.Interface.Interaction.Interaction):

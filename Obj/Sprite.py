@@ -4,8 +4,6 @@ import os
 import pygame
 
 import Obj.Scene
-
-
 # 精灵类 Scene的派生类
 class Sprite(Obj.Scene.Scene):
     def __init__(self, game, name, models, model):
