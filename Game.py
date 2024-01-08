@@ -1,5 +1,6 @@
 import copy
 import platform
+import sys
 
 import pygame
 import threading
@@ -29,7 +30,6 @@ class Game:
             "MOUSEBUTTONUP": False,
 
         }
-        self.flip = False
 
         self.main_scene = Obj.Scene.Scene(self, "main")
         self.main_scene.is_running = True
@@ -62,16 +62,17 @@ class Game:
                 else:
                     self.event["MOUSEBUTTONUP"] = False
 
-            self.main_scene.run()
+            self.screen.fill(self.bg_color)
+            # 运行主场景
+            self.main_scene.draw()
 
-            if self.flip:
-                if platform.system() == "Windows":
-                    pygame.display.flip()
-                elif platform.system() == "Linux":
-                    pygame.display.update()
-                self.flip = False
+            if platform.system() == "Windows":
+                pygame.display.flip()
+            elif platform.system() == "Linux":
+                pygame.display.update()
 
-            self.RUN_clock.tick(512)  # limits FPS to 60
+            self.RUN_clock.tick(self.setting_dict["FPS_clock"])  # limits FPS to 60
 
         del self.main_running
         pygame.quit()
+        sys.exit()

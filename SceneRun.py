@@ -18,10 +18,6 @@ class SceneRun(threading.Thread):  # 继承父类threading.Thread
 
     def run(self):
         while self.game.running:
-            self.game.screen.fill(self.game.bg_color)
-            self.game.main_scene.draw()
+            self.game.main_scene.run()
 
-            self.game.flip = True
-            while not self.game.flip:
-                continue
-            self.clock.tick(self.game.setting_dict["FPS_clock"])
+            self.clock.tick(512)
