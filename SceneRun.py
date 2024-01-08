@@ -22,5 +22,6 @@ class SceneRun(threading.Thread):  # 继承父类threading.Thread
             self.game.main_scene.draw()
 
             self.game.flip = True
-
+            while not self.game.flip:
+                continue
             self.clock.tick(self.game.setting_dict["FPS_clock"])

@@ -39,7 +39,7 @@ if __name__ == "__main__":
 
     PATH = os.path.abspath(".") + "/"
 
-    game = Game.new_game("Human", pygame.display.set_mode((600,400)))
+    game = Game.new_game("Human", pygame.display.set_mode((1920,1080), pygame.FULLSCREEN))
 
     game.PATH = PATH
 

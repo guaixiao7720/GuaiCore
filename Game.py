@@ -28,9 +28,8 @@ class Game:
             "MOUSEBUTTONDOWN": False,
             "MOUSEBUTTONUP": False,
 
-            }
+        }
         self.flip = False
-
 
         self.main_scene = Obj.Scene.Scene(self, "main")
         self.main_scene.is_running = True
@@ -66,11 +65,11 @@ class Game:
             self.main_scene.run()
 
             if self.flip:
-                self.flip = False
                 if platform.system() == "Windows":
                     pygame.display.flip()
                 elif platform.system() == "Linux":
                     pygame.display.update()
+                self.flip = False
 
             self.RUN_clock.tick(512)  # limits FPS to 60
 
