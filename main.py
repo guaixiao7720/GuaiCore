@@ -1,4 +1,3 @@
-
 import os
 import pygame
 
@@ -8,7 +7,8 @@ import Game
 if __name__ == "__main__":
     pygame.init()
 
-    class test(Obj.Sprite.Sprite, Obj.Interface.Interaction.Interaction):
+
+    class test(Obj.BackGround.BackGround, Obj.Interface.Interaction.Interaction):
         def __init__(self, game):
             super().__init__(game, "测试", {1: pygame.image.load(PATH + "test_bg.png")}, 1)
 
@@ -16,6 +16,7 @@ if __name__ == "__main__":
             # print("running")
             if self.is_clicked(0):
                 print("被点击")
+
 
     class test2(Obj.Sprite.Sprite):
         def __init__(self, game):
@@ -35,13 +36,15 @@ if __name__ == "__main__":
                 self.position[0] = pygame.mouse.get_pos()[0]
                 self.position[1] = pygame.mouse.get_pos()[1]
 
+
     PATH = os.path.abspath(".") + "/"
 
-    game = Game.new_game("Human", pygame.display.set_mode((1920,1080), pygame.FULLSCREEN))
+    game = Game.new_game("Human", pygame.display.set_mode((1024,700), pygame.RESIZABLE))
 
     game.PATH = PATH
 
     cash = test(game)
+    cash.reset_background_size()
     cash.show()
     cash.start()
     Obj.Scene.add_to_tree(game.main_scene, cash)
@@ -51,8 +54,12 @@ if __name__ == "__main__":
     cash2.run()
     Obj.Scene.add_to_tree((game.main_scene.tree[0]), cash2)
 
+    cach = Obj.GUI.GUI(game, "测试场景", {"哈哈哈": pygame.image.load(PATH + "box2.png")}, "哈哈哈")
+    cach.set_location(Obj.GUI.DIRECTLY_BELOW)
 
-    cach = Obj.Scene.Scene(game, "测试场景", {"哈哈哈": pygame.image.load(PATH + "box2.png")}, "哈哈哈")
+    game.setting_dict["UI_scaling"] = -40
+    cach.scale_run()
+
     cach.show()
     cach.start()
 

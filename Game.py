@@ -23,10 +23,11 @@ class Game:
         self.name = name
         self.RUN_clock = pygame.time.Clock()
         self.setting_dict = Tools.Setting.load(self.name)
-        self.bg_color = [255, 255, 255]
+        self.bg_color = [0, 0, 0]
         self.event = {
             "MOUSEBUTTONDOWN": False,
             "MOUSEBUTTONUP": False,
+            "WINDOWRESIZED": False
 
         }
 
@@ -45,25 +46,13 @@ class Game:
         self.running = True
 
         while self.running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.running = False
-                else:
-                    self.running = True
-
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    self.event["MOUSEBUTTONDOWN"] = True
-                else:
-                    self.event["MOUSEBUTTONDOWN"] = False
-
-                if event.type == pygame.MOUSEBUTTONUP:
-                    self.event["MOUSEBUTTONUP"] = True
-                else:
-                    self.event["MOUSEBUTTONUP"] = False
+            self.__event_manager()
 
             self.screen.fill(self.bg_color)
-            # 运行主场景
-            self.main_scene.draw()
+
+            if not self.event["WINDOWRESIZED"]:
+                # 运行主场景
+                self.main_scene.draw()
 
             if platform.system() == "Windows":
                 pygame.display.flip()
@@ -75,3 +64,26 @@ class Game:
         del self.main_running
         pygame.quit()
         sys.exit()
+
+    def __event_manager(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.running = False
+            else:
+                self.running = True
+
+            if event.type == pygame.WINDOWRESIZED:
+                self.event["WINDOWRESIZED"] = True
+                self.main_scene.when_window_resize_run()
+            else:
+                self.event["WINDOWRESIZED"] = False
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                self.event["MOUSEBUTTONDOWN"] = True
+            else:
+                self.event["MOUSEBUTTONDOWN"] = False
+
+            if event.type == pygame.MOUSEBUTTONUP:
+                self.event["MOUSEBUTTONUP"] = True
+            else:
+                self.event["MOUSEBUTTONUP"] = False

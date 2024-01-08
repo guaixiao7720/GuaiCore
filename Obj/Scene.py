@@ -10,6 +10,7 @@ class Scene(pygame.sprite.Sprite):
         # 场景的造型字典
         if models is not None:
             self.models = copy.deepcopy(models)
+            self.models_bac = copy.deepcopy(models)
 
         # 属性
         self.name = name
@@ -22,8 +23,10 @@ class Scene(pygame.sprite.Sprite):
         # model 参数 是 当前造型 在 造型字典中的键值
         if models is not None:
             self.image = self.models[model]
+            self.image_name = model
         else:
             self.image = None
+            self.image_name = None
 
         # 场景树列表
         self.tree = []
@@ -65,8 +68,25 @@ class Scene(pygame.sprite.Sprite):
         """
         if isinstance(models, dict):
             self.models = copy.deepcopy(models)
-        elif isinstance(models, pygame.Surface):
+            self.models_bac = copy.deepcopy(models)
+        elif isinstance(models, pygame.Surface) and name is not None:
             self.models[name] = copy.deepcopy(models)
+            self.models_bac[name] = copy.deepcopy(models)
+
+    def set_image(self, name):
+        self.image = self.models[name]
+        self.image_name = name
+
+    def when_window_resize_run(self):
+        i = 0
+        while i < len(self.tree):
+            if self.tree[i].is_running:
+                try:
+                    self.tree[i].when_window_resize_run()
+                except AttributeError:
+                    pass
+                i += 1
+
 
     def hidden(self):
         self.view = False

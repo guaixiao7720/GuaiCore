@@ -3,3 +3,4 @@ import Obj.Scene
 import Obj.Sprite
 
 import Obj.Interface
+import Obj.BackGround
