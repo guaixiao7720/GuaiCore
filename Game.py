@@ -21,7 +21,7 @@ class Game:
         self.running = None
         self.screen = screen
         self.name = name
-        self.FPS_clock = pygame.time.Clock()
+        self.RUN_clock = pygame.time.Clock()
         self.setting_dict = Tools.Setting.load(self.name)
         self.bg_color = [255, 255, 255]
         self.event = {
@@ -72,7 +72,7 @@ class Game:
                 elif platform.system() == "Linux":
                     pygame.display.update()
 
-            self.FPS_clock.tick(512)  # limits FPS to 60
+            self.RUN_clock.tick(512)  # limits FPS to 60
 
         del self.main_running
         pygame.quit()
