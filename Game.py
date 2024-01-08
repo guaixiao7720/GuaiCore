@@ -5,9 +5,8 @@ import sys
 import pygame
 import threading
 
-import Obj.Scene
-import Obj.Sprite
-import Tools.Setting
+import Obj
+import Tools
 from SceneRun import SceneRun
 
 

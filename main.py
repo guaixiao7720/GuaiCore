@@ -2,9 +2,7 @@
 import os
 import pygame
 
-import Obj.Interface.Interaction
-import Obj.Scene
-import Obj.Sprite
+import Obj
 import Game
 
 if __name__ == "__main__":
