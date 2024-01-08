@@ -21,9 +21,6 @@ class SceneRun(threading.Thread):  # 继承父类threading.Thread
             self.game.screen.fill(self.game.bg_color)
             self.game.main_scene.draw()
 
-            if self.system_name == "Windows":
-                pygame.display.flip()
-            elif self.system_name == "Android":
-                pygame.display.update()
+            self.game.flip = True
 
             self.clock.tick(self.game.setting_dict["FPS_clock"])
