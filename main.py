@@ -67,4 +67,13 @@ if __name__ == "__main__":
 
     obj.scene.add_to_tree(game.main_scene, cach)
 
+    text1 = obj.Text.Text(game, "111", "你好", 20)
+
+    text1.set_text("你好", 20, False, (0, 0, 0), text1.rect)
+    text1.set_location(obj.GUI.CENTER)
+    text1.show()
+    text1.start()
+    obj.scene.add_to_tree(game.main_scene, text1)
+
+
     game.start()
