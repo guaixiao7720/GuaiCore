@@ -8,7 +8,7 @@ if __name__ == "__main__":
     pygame.init()
 
 
-    class test(obj.BackGround.BackGround, obj.Interface.Interaction.Interaction):
+    class test(obj.BackGround.BackGround, obj.interface.Interaction.Interaction):
         def __init__(self, game):
             super().__init__(game, "测试", {1: pygame.image.load(PATH + "test_bg.png")}, 1)
 
@@ -49,12 +49,12 @@ if __name__ == "__main__":
     cash.reset_background_size()
     cash.show()
     cash.start()
-    obj.Scene.add_to_tree(game.main_scene, cash)
+    obj.scene.add_to_tree(game.main_scene, cash)
 
     cash2 = test2(game)
     cash2.show()
     cash2.run()
-    obj.Scene.add_to_tree((game.main_scene.tree[0]), cash2)
+    obj.scene.add_to_tree((game.main_scene.tree[0]), cash2)
 
     cach = obj.GUI.GUI(game, "测试场景", {"哈哈哈": pygame.image.load(PATH + "box2.png")}, "哈哈哈")
     cach.set_location(obj.GUI.DIRECTLY_BELOW)
@@ -65,6 +65,6 @@ if __name__ == "__main__":
     cach.show()
     cach.start()
 
-    obj.Scene.add_to_tree(game.main_scene, cach)
+    obj.scene.add_to_tree(game.main_scene, cach)
 
     game.start()

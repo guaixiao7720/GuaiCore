@@ -23,7 +23,7 @@ class Game:
         self.screen = screen
         self.name = name
         self.RUN_clock = pygame.time.Clock()
-        self.setting_dict = tools.Setting.load(self.name)
+        self.setting_dict = tools.setting.load(self.name)
         self.bg_color = [0, 0, 0]
         self.event = {
             "MOUSEBUTTONDOWN": False,
@@ -35,9 +35,9 @@ class Game:
         self.PATH = os.path.abspath(".") + "/"
 
         # 字体字典
-        self.FONT = tools.Setting.load_fonts()
+        self.FONT = tools.setting.load_fonts()
 
-        self.main_scene = obj.Scene.Scene(self, "main")
+        self.main_scene = obj.scene.Scene(self, "main")
         self.main_scene.is_running = True
         self.main_scene.view = True
 
