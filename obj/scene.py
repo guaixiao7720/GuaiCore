@@ -16,7 +16,6 @@ class Scene(pygame.sprite.Sprite):
         self.name = name
         self.view = False
         self.is_running = True
-        self.position = [0, 0]
         self.parent_scene = None
 
         # self.model 是 当前的造型 pygame.Surface self.models 是 造型字典
@@ -24,6 +23,8 @@ class Scene(pygame.sprite.Sprite):
         if models is not None:
             self.image = self.models[model]
             self.image_name = model
+            self.rect = self.image.get_rect()
+            self.rect.move((0, 0))
         else:
             self.image = None
             self.image_name = None
@@ -33,6 +34,7 @@ class Scene(pygame.sprite.Sprite):
 
         # 游戏对象的指针
         self.game = game
+
 
     def run(self):
         i = 0
@@ -49,9 +51,9 @@ class Scene(pygame.sprite.Sprite):
     def draw(self):
         if self.image is not None:
             if self.parent_scene is None:
-                self.game.screen.blit(self.image, self.position)
+                self.game.screen.blit(self.image, self.rect)
             else:
-                self.parent_scene.image.blit(self.image, self.position)
+                self.parent_scene.image.blit(self.image, self.rect)
 
         i = 0
         while i < len(self.tree):

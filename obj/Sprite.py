@@ -3,9 +3,9 @@ import os
 
 import pygame
 
-import Obj.Scene
+import obj.scene
 # 精灵类 Scene的派生类
-class Sprite(Obj.Scene.Scene):
+class Sprite(obj.Scene.Scene):
     def __init__(self, game, name, models, model):
         super().__init__(game, name, models, model)
 

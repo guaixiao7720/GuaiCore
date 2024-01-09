@@ -1,12 +1,13 @@
 import copy
+import os
 import platform
 import sys
 
 import pygame
 import threading
 
-import Obj
-import Tools
+import obj
+import tools
 from SceneRun import SceneRun
 
 
@@ -22,16 +23,21 @@ class Game:
         self.screen = screen
         self.name = name
         self.RUN_clock = pygame.time.Clock()
-        self.setting_dict = Tools.Setting.load(self.name)
+        self.setting_dict = tools.Setting.load(self.name)
         self.bg_color = [0, 0, 0]
         self.event = {
             "MOUSEBUTTONDOWN": False,
             "MOUSEBUTTONUP": False,
-            "WINDOWRESIZED": False
+            "WINDOWRESIZED": False,
+            "TEXTINPUT": False,
 
         }
+        self.PATH = os.path.abspath(".") + "/"
 
-        self.main_scene = Obj.Scene.Scene(self, "main")
+        # 字体字典
+        self.FONT = tools.Setting.load_fonts()
+
+        self.main_scene = obj.Scene.Scene(self, "main")
         self.main_scene.is_running = True
         self.main_scene.view = True
 
@@ -87,3 +93,8 @@ class Game:
                 self.event["MOUSEBUTTONUP"] = True
             else:
                 self.event["MOUSEBUTTONUP"] = False
+
+            if event.type == pygame.TEXTINPUT:
+                self.event["TEXTINPUT"] = pygame.TEXTINPUT
+            else:
+                self.event["TEXTINPUT"] = False

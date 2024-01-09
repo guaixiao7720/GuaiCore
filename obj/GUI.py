@@ -1,6 +1,6 @@
 import pygame
 
-import Obj.Sprite
+import obj.Sprite
 
 CENTER = "CENTER"
 DIRECTLY_ABOVE = "DIRECTLY_ABOVE"
@@ -11,7 +11,7 @@ UPPER_RIGHT = "UPPER_RIGHT"
 LOWER_RIGHT = "LOWER_RIGHT"
 
 
-class GUI(Obj.Sprite.Sprite):
+class GUI(obj.Sprite.Sprite):
     def __init__(self, game, name, models, model):
         super().__init__(game, name, models, model)
         self.location_offset = None
@@ -37,26 +37,26 @@ class GUI(Obj.Sprite.Sprite):
 
         size = pygame.display.get_window_size()
         if self.GUI_location == CENTER:
-            self.position[0] = size[0] / 2 - self.image.get_size()[0] / 2
-            self.position[1] = size[1] / 2 - self.image.get_size()[1] / 2
+            self.rect[0] = size[0] / 2 - self.image.get_size()[0] / 2
+            self.rect[1] = size[1] / 2 - self.image.get_size()[1] / 2
         elif self.GUI_location == DIRECTLY_BELOW:
-            self.position[0] = size[0] / 2 - self.image.get_size()[0] / 2
-            self.position[1] = size[1] - self.image.get_size()[1]
+            self.rect[0] = size[0] / 2 - self.image.get_size()[0] / 2
+            self.rect[1] = size[1] - self.image.get_size()[1]
         elif self.GUI_location == DIRECTLY_ABOVE:
-            self.position[0] = size[0] / 2 - self.image.get_size()[0] / 2
-            self.position[1] = 0
+            self.rect[0] = size[0] / 2 - self.image.get_size()[0] / 2
+            self.rect[1] = 0
         elif self.GUI_location == UPPER_RIGHT:
-            self.position[0] = 0
-            self.position[1] = 0
+            self.rect[0] = 0
+            self.rect[1] = 0
         elif self.GUI_location == LOWER_RIGHT:
-            self.position[0] = 0
-            self.position[1] = size[1] - self.image.get_size()[1]
+            self.rect[0] = 0
+            self.rect[1] = size[1] - self.image.get_size()[1]
         elif self.GUI_location == UPPER_LEFT:
-            self.position[0] = size[0] - self.image.get_size()[0]
-            self.position[1] = 0
+            self.rect[0] = size[0] - self.image.get_size()[0]
+            self.rect[1] = 0
         elif self.GUI_location == LOWER_LEFT:
-            self.position[0] = size[0] - self.image.get_size()[0]
-            self.position[1] = size[1] - self.image.get_size()[1]
+            self.rect[0] = size[0] - self.image.get_size()[0]
+            self.rect[1] = size[1] - self.image.get_size()[1]
         if offset is not None:
-            self.position[0] += offset[0]
-            self.position[1] += offset[1]
+            self.rect[0] += offset[0]
+            self.rect[1] += offset[1]
