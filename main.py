@@ -14,7 +14,6 @@ if __name__ == "__main__":
 
         def script(self):
             # print("running")
-            print(game.event["TEXTINPUT"])
             if self.is_clicked(0):
                 print("被点击")
 

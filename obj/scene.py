@@ -35,7 +35,6 @@ class Scene(pygame.sprite.Sprite):
         # 游戏对象的指针
         self.game = game
 
-
     def run(self):
         i = 0
         while i < len(self.tree):
@@ -88,7 +87,6 @@ class Scene(pygame.sprite.Sprite):
                 except AttributeError:
                     pass
                 i += 1
-
 
     def hidden(self):
         self.view = False

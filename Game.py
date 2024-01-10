@@ -93,8 +93,3 @@ class Game:
                 self.event["MOUSEBUTTONUP"] = True
             else:
                 self.event["MOUSEBUTTONUP"] = False
-
-            if event.type == pygame.TEXTINPUT:
-                self.event["TEXTINPUT"] = pygame.TEXTINPUT
-            else:
-                self.event["TEXTINPUT"] = False
