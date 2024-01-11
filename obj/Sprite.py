@@ -18,20 +18,20 @@ class _MoveThread(threading.Thread):
     def run(self):
 
         # 计算移动速度
-        distance_x = abs(self.sprite.rect[0] - self.sprite.new_position[0])
+        distance_x = abs(self.sprite.rect[0] - self.sprite._new_position[0])
 
-        distance_y = abs(self.sprite.rect[1] - self.sprite.new_position[1])
+        distance_y = abs(self.sprite.rect[1] - self.sprite._new_position[1])
 
-        speed_y = distance_y / self.sprite.milliseconds / self.sprite.game.setting_dict["Run_clock"]
-        speed_x = distance_x / self.sprite.milliseconds / self.sprite.game.setting_dict["Run_clock"]
+        speed_y = distance_y / self.sprite._milliseconds / self.sprite.game.setting_dict["Run_clock"]
+        speed_x = distance_x / self.sprite._milliseconds / self.sprite.game.setting_dict["Run_clock"]
 
         while self.sprite.rect:
-            if self.sprite.rect[0] < self.sprite.new_position[0]:
+            if self.sprite.rect[0] < self.sprite._new_position[0]:
                 self.sprite.rect[0] += speed_x
             else:
                 self.sprite.rect[0] -= speed_x
 
-            if self.sprite.rect[1] < self.sprite.new_position[1]:
+            if self.sprite.rect[1] < self.sprite._new_position[1]:
                 self.sprite.rect[1] += speed_y
             else:
                 self.sprite.rect[1] -= speed_y
@@ -43,8 +43,8 @@ class _MoveThread(threading.Thread):
 class Sprite(obj.scene.Scene):
     def __init__(self, game, name, models, model):
         super().__init__(game, name, models, model)
-        self.milliseconds = None
-        self.new_position = None
+        self._milliseconds = None
+        self._new_position = None
         self.__move_thread_obj: threading.Thread = _MoveThread(self)
 
     def sprite_run(self):
@@ -78,6 +78,6 @@ class Sprite(obj.scene.Scene):
         :param milliseconds: 毫秒
         :return: None
         """
-        self.new_position = new_position
-        self.milliseconds = milliseconds
+        self._new_position = new_position
+        self._milliseconds = milliseconds
         self.__move_thread_obj.start()
