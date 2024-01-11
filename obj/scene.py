@@ -60,6 +60,16 @@ class Scene(pygame.sprite.Sprite):
                 self.tree[i].draw()
                 i += 1
 
+    def event_run(self):
+        i = 0
+        while i < len(self.tree):
+            if self.tree[i].is_running:
+                try:
+                    self.tree[i].event_run()
+                except AttributeError:
+                    pass
+                i += 1
+
     def set_models(self, models: dict or pygame.Surface, name: str = None):
         """
         设置该精灵的造型字典 或 某一项造型

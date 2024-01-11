@@ -91,7 +91,7 @@ class Textinput:
                         break
                     res += 1
 
-    def run(self):
+    def event_run(self):
         self.rect.handel(self.game.event_obj)
         if self.game.event_obj.type == pygame.MOUSEBUTTONDOWN:
             if self.game.event_obj.button == 1:
@@ -118,17 +118,9 @@ class Textinput:
         if self.active:
             if self.game.event_obj.type == pygame.TEXTINPUT:
                 if self.cursor == -1:
-                    # print(self.game.event_obj.text)
-                    if self.game.event_obj.text.isdigit() or self.game.event_obj.text.isalpha():
-                        if eval(f"pygame.key.get_just_pressed()[pygame.K_{self.game.event_obj.text.lower()}]"):
-                            self.text += self.game.event_obj.text
-                            point = self.rect.get_coordinate()
-                            pygame.key.set_text_input_rect((point.left, point.top + 10, point.width, point.height))
-                    else:
-                        self.text += self.game.event_obj.text
-                        point = self.rect.get_coordinate()
-                        pygame.key.set_text_input_rect((point.left, point.top + 10, point.width, point.height))
-
+                    self.text += self.game.event_obj.text
+                    point = self.rect.get_coordinate()
+                    pygame.key.set_text_input_rect((point.left, point.top + 10, point.width, point.height))
                 else:
                     self.text = self.text[0:self.cursor] + self.game.event_obj.text + self.text[self.cursor:]
             elif self.game.event_obj.type == pygame.KEYDOWN:

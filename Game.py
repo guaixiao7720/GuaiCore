@@ -94,3 +94,5 @@ class Game:
                 self.event["MOUSEBUTTONUP"] = True
             else:
                 self.event["MOUSEBUTTONUP"] = False
+
+            self.main_scene.event_run()
