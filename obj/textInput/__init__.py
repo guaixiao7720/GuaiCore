@@ -1,1 +1,1 @@
-import obj.textInput.TextInput
+from .TextInput import *

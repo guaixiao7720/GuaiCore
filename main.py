@@ -4,13 +4,12 @@ import pygame
 
 import Game
 import obj
-import obj.gui.GUI
 
 if __name__ == "__main__":
     pygame.init()
 
 
-    class test(obj.gui.BackGround.BackGround, obj.interface.Interaction.Interaction):
+    class test(obj.gui.BackGround, obj.interface.Interaction.Interaction):
         def __init__(self, game):
             super().__init__(game, "测试", {1: pygame.image.load(PATH + "test_bg.png")}, 1)
 
@@ -21,7 +20,7 @@ if __name__ == "__main__":
 
 
 
-    class test2(obj.Sprite.Sprite):
+    class test2(obj.Sprite):
         def __init__(self, game):
             super().__init__(game, "测试2", {1: pygame.image.load(PATH + "box2.png")}, 1)
 
@@ -57,8 +56,8 @@ if __name__ == "__main__":
     cash2.run()
     obj.scene.add_to_tree((game.main_scene.tree[0]), cash2)
 
-    cach = obj.gui.GUI.GUI(game, "测试场景", {"哈哈哈": pygame.image.load(PATH + "box2.png")}, "哈哈哈")
-    cach.set_location(obj.gui.GUI.DIRECTLY_BELOW)
+    cach = obj.gui.GUI(game, "测试场景", {"哈哈哈": pygame.image.load(PATH + "box2.png")}, "哈哈哈")
+    cach.set_location(obj.gui.DIRECTLY_BELOW)
 
     game.setting_dict["UI_scaling"] = -40
     cach.scale_run()
@@ -70,10 +69,10 @@ if __name__ == "__main__":
 
     obj.scene.add_to_tree(game.main_scene, cach)
 
-    text1 = obj.gui.Text.Text(game, "111", "你好", 20)
+    text1 = obj.gui.Text(game, "111", "你好", 20)
 
     text1.set_text("你好", 20, False, (0, 0, 0), text1.rect)
-    text1.set_location(obj.gui.GUI.CENTER)
+    text1.set_location(obj.gui.CENTER)
     text1.show()
     text1.start()
     obj.scene.add_to_tree(game.main_scene, text1)

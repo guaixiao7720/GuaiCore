@@ -3,7 +3,7 @@ import pygame
 import obj.Sprite
 
 
-class GUI(obj.Sprite.Sprite):
+class GUI(obj.Sprite):
     def __init__(self, game, name, models, model):
         super().__init__(game, name, models, model)
         self.location_offset = None

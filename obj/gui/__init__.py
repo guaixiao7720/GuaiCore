@@ -1,4 +1,4 @@
-import obj.gui.BackGround
-import obj.gui.GUI
-import obj.gui.Text
+from .BackGround import *
+from .GUI import *
+from .Text import *
 
