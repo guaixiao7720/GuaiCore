@@ -61,6 +61,8 @@ if __name__ == "__main__":
     game.setting_dict["UI_scaling"] = -40
     cach.scale_run()
 
+    cach.move_in_milliseconds((0, 0), 3000)
+
     cach.show()
     cach.start()
 
@@ -74,7 +76,7 @@ if __name__ == "__main__":
     text1.start()
     obj.scene.add_to_tree(game.main_scene, text1)
 
-    input1 = obj.TextInput.Textinput(game, 80, 20, 15, 15)
+    input1 = obj.TextInput.Textinput(game, 150, 40, 15, 15)
     input1.view = True
     obj.scene.add_to_tree(game.main_scene, input1)
 

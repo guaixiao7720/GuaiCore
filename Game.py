@@ -41,6 +41,9 @@ class Game:
         self.main_scene.is_running = True
         self.main_scene.view = True
 
+        # 临时
+        self.setting_dict["Run_clock"] = 512
+
         # 主run线程
         self.main_running = SceneRun(self)
         self.main_running.start()
