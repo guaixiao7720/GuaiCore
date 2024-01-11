@@ -4,12 +4,13 @@ import pygame
 
 import Game
 import obj
+import component
 
 if __name__ == "__main__":
     pygame.init()
 
 
-    class test(obj.scene.gui.BackGround, obj.interface.Interaction):
+    class test(obj.scene.gui.BackGround, component.interface.Interaction):
         def __init__(self, game):
             super().__init__(game, "测试", {1: pygame.image.load(PATH + "test_bg.png")}, 1)
 
