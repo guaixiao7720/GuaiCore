@@ -2,11 +2,12 @@ import pygame
 
 
 class Obj(pygame.sprite.Sprite):
-    def __init__(self, game, name):
+    def __init__(self, game, name: str):
         super().__init__()
         self.__is_running = True
         self.game = game
-        self.name = name
+        self.__name = name
+        self.game.name_dict[self.__name] = self
 
     def start(self):
         self.__is_running = True

@@ -119,6 +119,7 @@ class Textinput(Scene):
                     self.game.event["TEXTINPUT"] = False
                     self.rectangle.border.color = (0, 0, 0)
         if self.active:
+            self.game.event["TEXTINPUT"] = True
             if self.game.event_obj.type == pygame.TEXTINPUT:
                 if self.cursor == -1:
                     self.text += self.game.event_obj.text

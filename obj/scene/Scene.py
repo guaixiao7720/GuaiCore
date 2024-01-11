@@ -72,7 +72,7 @@ class Scene(Obj):
         """
         设置该精灵的造型字典 或 某一项造型
         :param models: 造型 或 造型字典
-        :param name:
+        :param name: models字典键值
         :return:
         """
         if isinstance(models, dict):
@@ -96,7 +96,7 @@ class Scene(Obj):
                     pass
             i += 1
 
-    def hidden(self):
+    def hide(self):
         self.__view = False
 
     def show(self):

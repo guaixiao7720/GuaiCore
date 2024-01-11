@@ -12,4 +12,4 @@ def delete_from_tree(target: Scene, index: int, obj: Scene = None):
     if obj is None:
         del target.tree[index]
     else:
-        target.tree[index] = copy.copy(obj)
+        target.tree[index] = obj

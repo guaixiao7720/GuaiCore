@@ -78,7 +78,9 @@ if __name__ == "__main__":
     obj.scene.add_to_tree(game.main_scene, text1)
 
     input1 = obj.scene.textInput.TextInput.Textinput(game, "测试输入框", 150, 40, 15, 15)
-    input1.view = True
+    input1.show()
     obj.scene.add_to_tree(game.main_scene, input1)
+
+    obj.get_obj_from_name(game.name_dict, "测试2").hide()
 
     game.start()
