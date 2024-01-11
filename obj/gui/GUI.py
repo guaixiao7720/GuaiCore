@@ -2,14 +2,6 @@ import pygame
 
 import obj.Sprite
 
-CENTER = "CENTER"
-DIRECTLY_ABOVE = "DIRECTLY_ABOVE"
-DIRECTLY_BELOW = "DIRECTLY_BELOW"
-UPPER_LEFT = "UPPER_LEFT"
-LOWER_LEFT = "LOWER_LEFT"
-UPPER_RIGHT = "UPPER_RIGHT"
-LOWER_RIGHT = "LOWER_RIGHT"
-
 
 class GUI(obj.Sprite.Sprite):
     def __init__(self, game, name, models, model):
@@ -60,3 +52,12 @@ class GUI(obj.Sprite.Sprite):
         if offset is not None:
             self.rect[0] += offset[0]
             self.rect[1] += offset[1]
+
+
+CENTER = "CENTER"
+DIRECTLY_ABOVE = "DIRECTLY_ABOVE"
+DIRECTLY_BELOW = "DIRECTLY_BELOW"
+UPPER_LEFT = "UPPER_LEFT"
+LOWER_LEFT = "LOWER_LEFT"
+UPPER_RIGHT = "UPPER_RIGHT"
+LOWER_RIGHT = "LOWER_RIGHT"

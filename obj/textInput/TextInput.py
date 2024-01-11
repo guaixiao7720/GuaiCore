@@ -1,7 +1,9 @@
-from obj.rectangle import rectangle
-from obj.border import border
-import pygame
 import os
+
+import pygame
+
+from .border import border
+from .rectangle import rectangle
 
 
 def find_closest_number(num, lst):

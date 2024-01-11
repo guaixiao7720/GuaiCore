@@ -1,12 +1,12 @@
 import pygame
 
-import obj.GUI
+from .GUI import *
 
 
-class BackGround(obj.GUI.GUI):
+class BackGround(GUI):
     def __init__(self, game, name, models, model):
         super().__init__(game, name, models, model)
-        self.GUI_location = obj.GUI.CENTER
+        self.GUI_location = CENTER
 
     def when_window_resize_run(self):
         self.reset_background_size()
@@ -21,7 +21,7 @@ class BackGround(obj.GUI.GUI):
                 # 获得相应等比例的图像宽度。
                 width_size = int(image_size[0] / scale)
                 self.image = pygame.transform.scale(self.models_bac[self.image_name], (width_size, size))
-                self.set_location(obj.GUI.CENTER)
+                self.set_location(CENTER)
 
         image_size = self.image.get_size()
 
@@ -31,5 +31,5 @@ class BackGround(obj.GUI.GUI):
             # 获得相应等比例的图像宽度。
             width_size = int(image_size[0] / scale)
             self.image = pygame.transform.scale(self.models_bac[self.image_name], (width_size, size))
-            self.set_location(obj.GUI.CENTER)
+            self.set_location(CENTER)
 

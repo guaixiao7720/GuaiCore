@@ -4,7 +4,6 @@ import platform
 import sys
 
 import pygame
-import threading
 
 import obj
 import tools

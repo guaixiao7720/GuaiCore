@@ -1,5 +1,6 @@
-import pygame
 import copy
+
+import pygame
 
 
 class Scene(pygame.sprite.Sprite):
