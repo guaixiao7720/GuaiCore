@@ -1,6 +1,5 @@
-import copy
-
 import pygame
+import copy
 
 
 class Scene(pygame.sprite.Sprite):
@@ -114,25 +113,3 @@ class Scene(pygame.sprite.Sprite):
     def set_parent_scene(self, parent_scene):
         # 指针
         self.parent_scene = copy.deepcopy(parent_scene)
-
-
-def add_to_tree(target: Scene, obj: Scene):
-    target.tree.append(copy.copy(obj))
-
-
-def insert_to_tree(target: Scene, obj: Scene, index: int):
-    target.tree.insert(index, copy.copy(obj))
-
-
-def delete_from_tree(target: Scene, index: int, obj: Scene = None):
-    """
-    删除或替换目标场景树中的索引项
-    :param target: 目标场景
-    :param index: 索引
-    :param obj: 可选，当选择时，替换目标场景书中的索引项
-    :return: 无
-    """
-    if obj is None:
-        del target.tree[index]
-    else:
-        target.tree[index] = copy.copy(obj)
