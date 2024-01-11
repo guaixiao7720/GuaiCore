@@ -19,5 +19,7 @@ class SceneRun(threading.Thread):  # 继承父类threading.Thread
     def run(self):
         while self.game.running:
             self.game.main_scene.run()
-
-            self.clock.tick(512)
+            if self.game.event["TEXTINPUT"]:
+                self.clock.tick(self.game.setting_dict["FPS_clock"])
+            else:
+                self.clock.tick(512)

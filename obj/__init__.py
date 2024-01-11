@@ -5,3 +5,4 @@ import obj.Sprite
 import obj.interface
 import obj.BackGround
 import obj.Text
+import obj.TextInput

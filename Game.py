@@ -73,6 +73,7 @@ class Game:
 
     def __event_manager(self):
         for event in pygame.event.get():
+            self.event_obj = event
             if event.type == pygame.QUIT:
                 self.running = False
             else:

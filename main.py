@@ -74,5 +74,9 @@ if __name__ == "__main__":
     text1.start()
     obj.scene.add_to_tree(game.main_scene, text1)
 
+    input1 = obj.TextInput.Textinput(game, 80, 20, 15, 15)
+    input1.view = True
+    obj.scene.add_to_tree(game.main_scene, input1)
+
 
     game.start()
