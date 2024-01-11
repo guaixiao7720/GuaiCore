@@ -1,6 +1,8 @@
 import json
 import os
 
+import pygame
+
 PATH = os.path.abspath(".") + "/"
 
 
@@ -15,6 +17,15 @@ def load(game: str):
 
     return json.loads(str1)
 
+def load_fonts():
+    fonts_setting = open(f"{PATH}setting/fonts.json", "r")
+
+    str1 = fonts_setting.readlines()[0]
+    fonts_setting.close()
+    fonts_setting_dict = json.loads(str1)
+    fonts_setting = pygame.font.Font(f"{PATH}fonts/{fonts_setting_dict['1']}")
+
+    return fonts_setting
 
 def is_first_run():
     """检查引擎是否是第一次运行"""
