@@ -1,1 +1,1 @@
-import obj.interface.Interaction
+from .Interaction import Interaction

@@ -1,6 +1,6 @@
 import pygame
 
-from .GUI import *
+from .GUI import GUI, CENTER, DIRECTLY_BELOW, DIRECTLY_ABOVE, LOWER_LEFT, LOWER_RIGHT, UPPER_LEFT, UPPER_RIGHT
 
 
 class BackGround(GUI):

@@ -1,4 +1,5 @@
-from .Scene import *
+from .Scene import Scene
+import copy
 
 
 def add_to_tree(target: Scene, obj: Scene):

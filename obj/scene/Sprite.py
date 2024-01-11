@@ -2,7 +2,7 @@ import threading
 
 import pygame
 
-from .Scene import *
+from .Scene import Scene
 
 
 class _MoveThread(threading.Thread):

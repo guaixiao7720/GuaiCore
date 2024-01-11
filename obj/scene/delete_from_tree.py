@@ -1,4 +1,4 @@
-from .Scene import *
+from .Scene import Scene
 
 
 def delete_from_tree(target: Scene, index: int, obj: Scene = None):

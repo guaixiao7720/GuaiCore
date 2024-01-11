@@ -1,7 +1,7 @@
-import obj.scene
 
 
-class Music(obj.scene.Scene):
+
+class Music():
     pass
 
 def aaaa():
