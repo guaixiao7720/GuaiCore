@@ -15,9 +15,9 @@ class GUI(Sprite):
     def scale_run(self):
         if self.game.setting_dict["UI_scaling"] != False:
             scaling = int(self.game.setting_dict["UI_scaling"])
-            self.image = pygame.transform.scale(self.models_bac[self.image_name], (self.models_bac[self.image_name].get_size()[0] + scaling, self.models_bac[self.image_name].get_size()[1] + scaling))
+            self.image = pygame.transform.smoothscale(self.models_bac[self.image_name], (self.models_bac[self.image_name].get_size()[0] + scaling, self.models_bac[self.image_name].get_size()[1] + scaling))
             for key in self.models.keys():
-                self.models[key] = pygame.transform.scale(self.models_bac[key], (self.models_bac[key].get_size()[0] + scaling, self.models_bac[key].get_size()[1] + scaling))
+                self.models[key] = pygame.transform.smoothscale(self.models_bac[key], (self.models_bac[key].get_size()[0] + scaling, self.models_bac[key].get_size()[1] + scaling))
             self.set_location()
 
     def set_location(self, GUI_location=None, offset: tuple or list = None):

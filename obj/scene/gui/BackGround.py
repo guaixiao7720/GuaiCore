@@ -20,7 +20,7 @@ class BackGround(GUI):
                 scale = image_size[1] / size
                 # 获得相应等比例的图像宽度。
                 width_size = int(image_size[0] / scale)
-                self.image = pygame.transform.scale(self.models_bac[self.image_name], (width_size, size))
+                self.image = pygame.transform.smoothscale(self.models_bac[self.image_name], (width_size, size))
                 self.set_location(CENTER)
 
         image_size = self.image.get_size()
@@ -30,6 +30,6 @@ class BackGround(GUI):
             scale = image_size[1] / size
             # 获得相应等比例的图像宽度。
             width_size = int(image_size[0] / scale)
-            self.image = pygame.transform.scale(self.models_bac[self.image_name], (width_size, size))
+            self.image = pygame.transform.smoothscale(self.models_bac[self.image_name], (width_size, size))
             self.set_location(CENTER)
 
