@@ -1,6 +1,6 @@
 import pygame.font
 
-from .GUI import *
+from .GUI import GUI
 
 
 class Text(GUI):

@@ -1,6 +1,6 @@
 import pygame
 
-from obj.textInput.border import border
+from obj.scene.textInput.border import border
 
 
 class rectangle:

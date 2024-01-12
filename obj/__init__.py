@@ -1,6 +1,5 @@
-from .Sprite import *
-import obj.gui
-import obj.interface
+from .Obj import Obj
+from .get_obj_from_name import get_obj_from_name
+
 import obj.scene
-import obj.textInput
 import obj.sound

@@ -1,9 +1,9 @@
 import pygame
 
-import obj.scene
+from obj.scene.Scene import Scene
 
 
-class Interaction(obj.scene.Scene):
+class Interaction(Scene):
     def __init__(self, game, name: str, models: dict = None, model: str or int = None):
         super().__init__(game, name, models, model)
         self.text_input = None

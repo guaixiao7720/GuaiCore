@@ -1,9 +1,9 @@
 import pygame
 
-import obj.Sprite
+from obj.scene.Sprite import Sprite
 
 
-class GUI(obj.Sprite):
+class GUI(Sprite):
     def __init__(self, game, name, models, model):
         super().__init__(game, name, models, model)
         self.location_offset = None
