@@ -83,4 +83,9 @@ if __name__ == "__main__":
 
     obj.get_obj_from_name(game.name_dict, "测试2").hide()
 
+    bgm = obj.sound.Music(game, "TOBY", {"1" : pygame.mixer.Sound(PATH+"Bring_it_in.ogg")}, "1")
+
+    bgm.play_start(5)
+
     game.start()
+
