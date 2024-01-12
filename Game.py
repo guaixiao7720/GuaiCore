@@ -4,7 +4,6 @@ import platform
 import sys
 
 import pygame
-import threading
 
 import obj
 import tools
@@ -33,6 +32,9 @@ class Game:
 
         }
         self.PATH = os.path.abspath(".") + "/"
+
+        # obj名字字典
+        self.name_dict = {}
 
         # 字体字典
         self.FONT = tools.setting.load_fonts()
@@ -99,3 +101,10 @@ class Game:
                 self.event["MOUSEBUTTONUP"] = False
 
             self.main_scene.event_run()
+
+            if self.event["TEXTINPUT"]:
+                pygame.key.start_text_input()
+            else:
+                pygame.key.stop_text_input()
+
+            self.event["TEXTINPUT"] = False

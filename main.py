@@ -1,14 +1,16 @@
 import os
+
 import pygame
 
-import obj
 import Game
+import obj
+import component
 
 if __name__ == "__main__":
     pygame.init()
 
 
-    class test(obj.BackGround.BackGround, obj.interface.Interaction.Interaction):
+    class test(obj.scene.gui.BackGround, component.interface.Interaction):
         def __init__(self, game):
             super().__init__(game, "测试", {1: pygame.image.load(PATH + "test_bg.png")}, 1)
 
@@ -18,8 +20,7 @@ if __name__ == "__main__":
                 print("被点击")
 
 
-
-    class test2(obj.Sprite.Sprite):
+    class test2(obj.scene.Sprite):
         def __init__(self, game):
             super().__init__(game, "测试2", {1: pygame.image.load(PATH + "box2.png")}, 1)
 
@@ -40,7 +41,7 @@ if __name__ == "__main__":
 
     PATH = os.path.abspath(".") + "/"
 
-    game = Game.new_game("Human", pygame.display.set_mode((1024,700), pygame.RESIZABLE))
+    game = Game.new_game("Human", pygame.display.set_mode((1024, 700), pygame.RESIZABLE))
 
     game.PATH = PATH
 
@@ -55,8 +56,8 @@ if __name__ == "__main__":
     cash2.run()
     obj.scene.add_to_tree((game.main_scene.tree[0]), cash2)
 
-    cach = obj.GUI.GUI(game, "测试场景", {"哈哈哈": pygame.image.load(PATH + "box2.png")}, "哈哈哈")
-    cach.set_location(obj.GUI.DIRECTLY_BELOW)
+    cach = obj.scene.gui.GUI(game, "测试场景", {"哈哈哈": pygame.image.load(PATH + "box2.png")}, "哈哈哈")
+    cach.set_location(obj.scene.gui.DIRECTLY_BELOW)
 
     game.setting_dict["UI_scaling"] = -40
     cach.scale_run()
@@ -68,17 +69,18 @@ if __name__ == "__main__":
 
     obj.scene.add_to_tree(game.main_scene, cach)
 
-    text1 = obj.Text.Text(game, "111", "你好", 20)
+    text1 = obj.scene.gui.Text(game, "111", "你好", 20)
 
     text1.set_text("你好", 20, False, (0, 0, 0), text1.rect)
-    text1.set_location(obj.GUI.CENTER)
+    text1.set_location(obj.scene.gui.CENTER)
     text1.show()
     text1.start()
     obj.scene.add_to_tree(game.main_scene, text1)
 
-    input1 = obj.TextInput.Textinput(game, 150, 40, 15, 15)
-    input1.view = True
+    input1 = obj.scene.textInput.TextInput.Textinput(game, "测试输入框", 150, 40, 15, 15)
+    input1.show()
     obj.scene.add_to_tree(game.main_scene, input1)
 
+    obj.get_obj_from_name(game.name_dict, "测试2").hide()
 
     game.start()

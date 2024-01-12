@@ -1,7 +1,7 @@
+import platform
 import threading
 
 import pygame
-import platform
 
 
 class SceneRun(threading.Thread):  # 继承父类threading.Thread

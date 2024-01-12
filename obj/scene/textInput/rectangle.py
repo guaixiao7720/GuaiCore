@@ -1,7 +1,8 @@
 import pygame
-from obj.border import border
- 
- 
+
+from obj.scene.textInput.border import border
+
+
 class rectangle:
     def __init__(self, screen, width, height, x, y, background_color=None, rect_border=None, fix=False,
                  click_background_color=(255, 255, 255), click_border_color=(64, 160, 255)):

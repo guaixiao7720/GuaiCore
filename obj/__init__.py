@@ -1,8 +1,5 @@
-import obj.GUI
-import obj.scene
-import obj.Sprite
+from .Obj import Obj
+from .get_obj_from_name import get_obj_from_name
 
-import obj.interface
-import obj.BackGround
-import obj.Text
-import obj.TextInput
+import obj.scene
+import obj.sound

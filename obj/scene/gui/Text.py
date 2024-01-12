@@ -1,11 +1,9 @@
-import copy
-
 import pygame.font
 
-import obj.GUI
+from .GUI import GUI
 
 
-class Text(obj.GUI.GUI):
+class Text(GUI):
     def __init__(self, game, name, text: str, size: int):
         super().__init__(game, name, None, None)
         self.__text = text

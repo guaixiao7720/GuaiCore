@@ -1,10 +1,8 @@
-import sys
-import os
 import threading
 
 import pygame
 
-import obj.scene
+from .Scene import Scene
 
 
 class _MoveThread(threading.Thread):
@@ -12,7 +10,7 @@ class _MoveThread(threading.Thread):
         super().__init__()
         # self.sprite 传入指针
 
-        self.sprite: obj.Sprite.Sprite = sprite
+        self.sprite: Sprite = sprite
         self.clock = pygame.time.Clock()
 
     def run(self):
@@ -40,7 +38,7 @@ class _MoveThread(threading.Thread):
 
 
 # 精灵类 Scene的派生类
-class Sprite(obj.scene.Scene):
+class Sprite(Scene):
     def __init__(self, game, name, models, model):
         super().__init__(game, name, models, model)
         self._milliseconds = None
