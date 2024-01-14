@@ -7,33 +7,55 @@ from obj.Obj import Obj
 class Scene(Obj):
     def __init__(self, game, name: str, models: dict = None, model: str or int = None):
         super().__init__(game, name)
+        self.__is_changed = False
         self.image = None
 
         # 场景的造型字典
         if models is not None:
             self.models = copy.deepcopy(models)
-            self.models_bac = copy.deepcopy(models)
-
         # 属性
 
         self.__view = False
         self.parent_scene = None
 
+
         # self.model 是 当前的造型 pygame.Surface self.models 是 造型字典
         # model 参数 是 当前造型 在 造型字典中的键值
         if models is not None:
             self.image = self.models[model]
-            self.image_name = model
+            self.__image_bac = copy.copy(self.image)
             self.rect = self.image.get_rect()
             self.rect.move((0, 0))
+            self.__width = self.rect[2]
+            self.__height = self.rect[3]
         else:
             self.image = None
-            self.image_name = None
+            self.__image_bac = None
+            self.__width = 0
+            self.__height = 0
+
+        if model is None:
+            self.mask = None
+        else:
+            self.mask = pygame.mask.from_surface(self.image)
 
         # 场景树列表
         self.tree = []
 
     def run(self):
+
+        if self.__is_changed and self.image is not None:
+            new_image = pygame.transform.smoothscale(self.__image_bac, (self.__width, self.__height))
+            self.image = copy.copy(new_image)
+            del new_image
+
+            self.__is_changed = False
+
+            try:
+                self.change_mask_from_image()
+            except AttributeError:
+                pass
+
         i = 0
         while i < len(self.tree):
             if self.tree[i].get_running():
@@ -47,6 +69,7 @@ class Scene(Obj):
 
     def draw(self):
         if self.image is not None:
+
             if self.parent_scene is None:
                 self.game.screen.blit(self.image, self.rect)
             else:
@@ -54,8 +77,13 @@ class Scene(Obj):
 
         i = 0
         while i < len(self.tree):
-            if self.tree[i].get_view():
-                self.tree[i].draw()
+
+            try:
+                if self.tree[i].get_view():
+                    self.tree[i].draw()
+            except AttributeError:
+                i += 1
+                continue
             i += 1
 
     def event_run(self):
@@ -77,14 +105,16 @@ class Scene(Obj):
         """
         if isinstance(models, dict):
             self.models = copy.deepcopy(models)
-            self.models_bac = copy.deepcopy(models)
+
         elif isinstance(models, pygame.Surface) and name is not None:
             self.models[name] = copy.deepcopy(models)
-            self.models_bac[name] = copy.deepcopy(models)
+
+        self.__is_changed = True
 
     def set_image(self, name):
         self.image = self.models[name]
         self.image_name = name
+        self.__is_changed = True
 
     def when_window_resize_run(self):
         i = 0
@@ -95,6 +125,7 @@ class Scene(Obj):
                 except AttributeError:
                     pass
             i += 1
+        self.__is_changed = True
 
     def hide(self):
         self.__view = False
@@ -108,3 +139,26 @@ class Scene(Obj):
     def set_parent_scene(self, parent_scene):
         # 指针
         self.parent_scene = copy.deepcopy(parent_scene)
+
+    def change_mask_from_image(self):
+        self.mask = pygame.mask.from_surface(self.image)
+
+    def set_position(self, posit : list or tuple):
+        self.rect[0] = posit[0]
+        self.rect[1] = posit[1]
+
+    def set_width(self, num):
+        self.__is_changed = True
+        self.__width = num
+        self.rect[2] = self.__width
+
+    def get_width(self):
+        return self.__width
+
+    def set_height(self, num):
+        self.__is_changed = True
+        self.__height = num
+        self.rect[3] = self.__height
+
+    def get_height(self):
+        return self.__height

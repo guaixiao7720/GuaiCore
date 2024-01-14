@@ -9,6 +9,9 @@ class Obj(pygame.sprite.Sprite):
         self.__name = name
         self.game.name_dict[self.__name] = self
 
+    def run(self):
+        pass
+
     def start(self):
         self.__is_running = True
 

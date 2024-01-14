@@ -8,19 +8,34 @@ import component
 
 if __name__ == "__main__":
     pygame.init()
-
+    PATH = os.path.abspath(".") + "/"
 
     class test(obj.scene.gui.BackGround, component.interface.Interaction):
         def __init__(self, game):
             super().__init__(game, "测试", {1: pygame.image.load(PATH + "test_bg.png")}, 1)
 
+
+
         def script(self):
             # print("running")
-            if self.is_clicked(0):
-                print("被点击")
+            # if self.is_clicked_mask(0):
+            #     print(123)
+            pass
+
+    class Sans(obj.scene.gui.GUI, component.interface.Interaction):
+        def __init__(self, game):
+            super().__init__(game, "sans", {1: pygame.image.load(f"{PATH}sans.png")}, 1)
+            self.set_location(obj.scene.gui.CENTER)
+            self.show()
+            self.start()
+            obj.scene.add_to_tree(game.main_scene, self)
+
+        def script(self):
+            if self.is_clicked_mask(0):
+                print(1213)
 
 
-    class test2(obj.scene.Sprite):
+    class test2(obj.scene.Sprite, component.interface.Interaction):
         def __init__(self, game):
             super().__init__(game, "测试2", {1: pygame.image.load(PATH + "box2.png")}, 1)
 
@@ -39,7 +54,7 @@ if __name__ == "__main__":
                 self.rect[1] = pygame.mouse.get_pos()[1]
 
 
-    PATH = os.path.abspath(".") + "/"
+
 
     game = Game.new_game("Human", pygame.display.set_mode((1024, 700), pygame.RESIZABLE))
 
@@ -54,7 +69,7 @@ if __name__ == "__main__":
     cash2 = test2(game)
     cash2.show()
     cash2.run()
-    obj.scene.add_to_tree((game.main_scene.tree[0]), cash2)
+    obj.scene.add_to_tree((game.main_scene.tree[1]), cash2)
 
     cach = obj.scene.gui.GUI(game, "测试场景", {"哈哈哈": pygame.image.load(PATH + "box2.png")}, "哈哈哈")
     cach.set_location(obj.scene.gui.DIRECTLY_BELOW)
@@ -62,7 +77,7 @@ if __name__ == "__main__":
     game.setting_dict["UI_scaling"] = -40
     cach.scale_run()
 
-    cach.move_in_milliseconds((0, 0), 3000)
+
 
     cach.show()
     cach.start()
@@ -87,5 +102,6 @@ if __name__ == "__main__":
 
     bgm.play_start(5)
 
+    sans = Sans(game)
     game.start()
 

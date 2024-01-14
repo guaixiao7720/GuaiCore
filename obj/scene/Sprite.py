@@ -45,8 +45,12 @@ class Sprite(Scene):
         self._new_position = None
         self.__move_thread_obj: threading.Thread = _MoveThread(self)
 
+
+
     def sprite_run(self):
         pass
+
+
 
     # 以下是触发器 等待被重写
 

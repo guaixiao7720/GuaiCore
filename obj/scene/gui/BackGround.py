@@ -11,25 +11,20 @@ class BackGround(GUI):
     def when_window_resize_run(self):
         self.reset_background_size()
         self.set_location()
+        self.__is_changed = True
 
     def reset_background_size(self):
-        for key in self.models.keys():
-            image_size = self.models[key].get_size()
-            if image_size[1] > pygame.display.get_window_size()[1]:
-                size = pygame.display.get_window_size()[1]
-                scale = image_size[1] / size
-                # 获得相应等比例的图像宽度。
-                width_size = int(image_size[0] / scale)
-                self.image = pygame.transform.smoothscale(self.models_bac[self.image_name], (width_size, size))
-                self.set_location(CENTER)
 
-        image_size = self.image.get_size()
+        image_size = (self.get_width(), self.get_height())
 
-        if image_size[1] > pygame.display.get_window_size()[1]:
+        if image_size[1] != pygame.display.get_window_size()[1]:
             size = pygame.display.get_window_size()[1]
             scale = image_size[1] / size
             # 获得相应等比例的图像宽度。
             width_size = int(image_size[0] / scale)
-            self.image = pygame.transform.smoothscale(self.models_bac[self.image_name], (width_size, size))
+            self.set_width(width_size)
+            self.set_height(size)
+            self.__is_changed = True
             self.set_location(CENTER)
+
 

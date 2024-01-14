@@ -43,6 +43,8 @@ class Game:
         self.main_scene.is_running = True
         self.main_scene.view = True
 
+        obj.scene.add_to_tree(self.main_scene, obj.scene.controller.Mouse(self, "mouse", 1, 1))
+
         # 临时
         self.setting_dict["Run_clock"] = 512
 

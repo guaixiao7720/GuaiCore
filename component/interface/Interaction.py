@@ -1,6 +1,7 @@
 import pygame
 
 from obj.scene.Scene import Scene
+from obj import get_obj_from_name
 
 
 class Interaction(Scene):
@@ -8,7 +9,7 @@ class Interaction(Scene):
         super().__init__(game, name, models, model)
         self.text_input = None
 
-    def is_clicked(self, num: int):
+    def is_clicked_rect(self, num: int):
         mouse_pos_boolx = self.image.get_size()[0] + self.rect[0] > pygame.mouse.get_pos()[0] > self.rect[0]
         mouse_pos_booly = self.image.get_size()[1] + self.rect[1] > pygame.mouse.get_pos()[1] > self.rect[1]
 
@@ -20,11 +21,20 @@ class Interaction(Scene):
             del mouse_pos_boolx, mouse_pos_booly
             return False
 
+    def is_clicked_mask(self, butt: int):
+        if pygame.sprite.collide_mask(self, get_obj_from_name(self.game.name_dict, "mouse")):
+            if pygame.mouse.get_pressed(5)[butt] and self.game.event["MOUSEBUTTONDOWN"]:
+                self.game.event["MOUSEBUTTONDOWN"] = False
+                return True
+        return False
+
+
+
 
     # SDL2 的附加功能未能正常调用 我也不知道为什么 只能暂时遗弃
-    def start_textinput(self):
-        pygame.key.start_text_input()
-        pygame.key.set_text_input_rect(pygame.Rect(100,100,100,100))
-        # 接口使用对象的 输入字符串
-        self.text_input = self.game.event["TEXTINPUT"]
+    # def start_textinput(self):
+    #     pygame.key.start_text_input()
+    #     pygame.key.set_text_input_rect(pygame.Rect(100,100,100,100))
+    #     # 接口使用对象的 输入字符串
+    #     self.text_input = self.game.event["TEXTINPUT"]
 

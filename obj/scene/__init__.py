@@ -1,5 +1,6 @@
 import obj.scene.gui
 import obj.scene.textInput
+import obj.scene.controller
 
 from .Scene import Scene
 from .Sprite import Sprite

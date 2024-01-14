@@ -11,13 +11,13 @@ class GUI(Sprite):
 
     def when_window_resize_run(self):
         self.set_location()
+        self.__is_changed = True
 
     def scale_run(self):
         if self.game.setting_dict["UI_scaling"] != False:
             scaling = int(self.game.setting_dict["UI_scaling"])
-            self.image = pygame.transform.smoothscale(self.models_bac[self.image_name], (self.models_bac[self.image_name].get_size()[0] + scaling, self.models_bac[self.image_name].get_size()[1] + scaling))
-            for key in self.models.keys():
-                self.models[key] = pygame.transform.smoothscale(self.models_bac[key], (self.models_bac[key].get_size()[0] + scaling, self.models_bac[key].get_size()[1] + scaling))
+            self.set_width(self.get_width() + scaling)
+            self.set_height(self.get_height() + scaling)
             self.set_location()
 
     def set_location(self, GUI_location=None, offset: tuple or list = None):
@@ -29,26 +29,26 @@ class GUI(Sprite):
 
         size = pygame.display.get_window_size()
         if self.GUI_location == CENTER:
-            self.rect[0] = size[0] / 2 - self.image.get_size()[0] / 2
-            self.rect[1] = size[1] / 2 - self.image.get_size()[1] / 2
+            self.rect[0] = size[0] / 2 - self.get_width() / 2
+            self.rect[1] = size[1] / 2 - self.get_height() / 2
         elif self.GUI_location == DIRECTLY_BELOW:
-            self.rect[0] = size[0] / 2 - self.image.get_size()[0] / 2
-            self.rect[1] = size[1] - self.image.get_size()[1]
+            self.rect[0] = size[0] / 2 - self.get_width() / 2
+            self.rect[1] = size[1] - self.get_height()
         elif self.GUI_location == DIRECTLY_ABOVE:
-            self.rect[0] = size[0] / 2 - self.image.get_size()[0] / 2
+            self.rect[0] = size[0] / 2 - self.get_width() / 2
             self.rect[1] = 0
         elif self.GUI_location == UPPER_RIGHT:
             self.rect[0] = 0
             self.rect[1] = 0
         elif self.GUI_location == LOWER_RIGHT:
             self.rect[0] = 0
-            self.rect[1] = size[1] - self.image.get_size()[1]
+            self.rect[1] = size[1] - self.get_height()
         elif self.GUI_location == UPPER_LEFT:
-            self.rect[0] = size[0] - self.image.get_size()[0]
+            self.rect[0] = size[0] - self.get_width()
             self.rect[1] = 0
         elif self.GUI_location == LOWER_LEFT:
-            self.rect[0] = size[0] - self.image.get_size()[0]
-            self.rect[1] = size[1] - self.image.get_size()[1]
+            self.rect[0] = size[0] - self.get_width()
+            self.rect[1] = size[1] - self.get_height()
         if offset is not None:
             self.rect[0] += offset[0]
             self.rect[1] += offset[1]
