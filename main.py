@@ -10,25 +10,32 @@ if __name__ == "__main__":
     pygame.init()
     PATH = os.path.abspath(".") + "/"
 
-    class test(obj.scene.gui.BackGround, component.interface.Interaction):
+    class test(obj.scene.gui.BackGround, component.interface.Interaction, component.display.Camera):
         def __init__(self, game):
             super().__init__(game, "测试", {1: pygame.image.load(PATH + "test_bg.png")}, 1)
-
+            self.camera_init()
 
 
         def script(self):
-            # print("running")
-            # if self.is_clicked_mask(0):
-            #     print(123)
+            if pygame.key.get_pressed()[pygame.K_w]:
+                self.camera_position[1] -= 1
+            if pygame.key.get_pressed()[pygame.K_s]:
+                self.camera_position[1] += 1
+            if pygame.key.get_pressed()[pygame.K_a]:
+                self.camera_position[0] -= 1
+            if pygame.key.get_pressed()[pygame.K_d]:
+                self.camera_position[0] += 1
             pass
 
-    class Sans(obj.scene.gui.GUI, component.interface.Interaction):
+        def draw(self):
+            pass
+
+    class Sans(obj.scene.Sprite, component.interface.Interaction):
         def __init__(self, game):
             super().__init__(game, "sans", {1: pygame.image.load(f"{PATH}sans.png")}, 1)
-            self.set_location(obj.scene.gui.CENTER)
+            self.position = [250, 250]
             self.show()
-            self.start()
-            obj.scene.add_to_tree(game.main_scene, self)
+            obj.scene.add_to_tree(cash, self)
 
         def script(self):
             if self.is_clicked_mask(0):
@@ -41,13 +48,13 @@ if __name__ == "__main__":
 
         def script(self):
             if pygame.key.get_pressed()[pygame.K_w]:
-                self.rect[1] -= 1
+                self.rect[1] -= 0.2
             if pygame.key.get_pressed()[pygame.K_s]:
-                self.rect[1] += 1
+                self.rect[1] += 0.2
             if pygame.key.get_pressed()[pygame.K_d]:
-                self.rect[0] += 1
+                self.rect[0] += 0.2
             if pygame.key.get_pressed()[pygame.K_a]:
-                self.rect[0] -= 1
+                self.rect[0] -= 0.2
 
             if pygame.mouse.get_pressed(3)[0]:
                 self.rect[0] = pygame.mouse.get_pos()[0]
@@ -69,7 +76,7 @@ if __name__ == "__main__":
     cash2 = test2(game)
     cash2.show()
     cash2.run()
-    obj.scene.add_to_tree((game.main_scene.tree[1]), cash2)
+    obj.scene.add_to_tree(cash, cash2)
 
     cach = obj.scene.gui.GUI(game, "测试场景", {"哈哈哈": pygame.image.load(PATH + "box2.png")}, "哈哈哈")
     cach.set_location(obj.scene.gui.DIRECTLY_BELOW)
@@ -82,7 +89,7 @@ if __name__ == "__main__":
     cach.show()
     cach.start()
 
-    obj.scene.add_to_tree(game.main_scene, cach)
+    obj.scene.add_to_tree(cash, cach)
 
     text1 = obj.scene.gui.Text(game, "111", "你好", 20)
 
@@ -90,11 +97,11 @@ if __name__ == "__main__":
     text1.set_location(obj.scene.gui.CENTER)
     text1.show()
     text1.start()
-    obj.scene.add_to_tree(game.main_scene, text1)
+    obj.scene.add_to_tree(cach, text1)
 
     input1 = obj.scene.textInput.TextInput.Textinput(game, "测试输入框", 150, 40, 15, 15)
     input1.show()
-    obj.scene.add_to_tree(game.main_scene, input1)
+    obj.scene.add_to_tree(cash, input1)
 
     obj.get_obj_from_name(game.name_dict, "测试2").hide()
 
@@ -103,5 +110,6 @@ if __name__ == "__main__":
     bgm.play_start(5)
 
     sans = Sans(game)
+
     game.start()
 

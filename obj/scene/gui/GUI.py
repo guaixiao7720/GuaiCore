@@ -29,29 +29,29 @@ class GUI(Sprite):
 
         size = pygame.display.get_window_size()
         if self.GUI_location == CENTER:
-            self.rect[0] = size[0] / 2 - self.get_width() / 2
-            self.rect[1] = size[1] / 2 - self.get_height() / 2
+            self.position[0] = size[0] / 2 - self.get_width() / 2
+            self.position[1] = size[1] / 2 - self.get_height() / 2
         elif self.GUI_location == DIRECTLY_BELOW:
-            self.rect[0] = size[0] / 2 - self.get_width() / 2
-            self.rect[1] = size[1] - self.get_height()
+            self.position[0] = size[0] / 2 - self.get_width() / 2
+            self.position[1] = size[1] - self.get_height()
         elif self.GUI_location == DIRECTLY_ABOVE:
-            self.rect[0] = size[0] / 2 - self.get_width() / 2
-            self.rect[1] = 0
+            self.position[0] = size[0] / 2 - self.get_width() / 2
+            self.position[1] = 0
         elif self.GUI_location == UPPER_RIGHT:
-            self.rect[0] = 0
-            self.rect[1] = 0
+            self.position[0] = 0
+            self.position[1] = 0
         elif self.GUI_location == LOWER_RIGHT:
-            self.rect[0] = 0
-            self.rect[1] = size[1] - self.get_height()
+            self.position[0] = 0
+            self.position[1] = size[1] - self.get_height()
         elif self.GUI_location == UPPER_LEFT:
-            self.rect[0] = size[0] - self.get_width()
-            self.rect[1] = 0
+            self.position[0] = size[0] - self.get_width()
+            self.position[1] = 0
         elif self.GUI_location == LOWER_LEFT:
-            self.rect[0] = size[0] - self.get_width()
-            self.rect[1] = size[1] - self.get_height()
+            self.position[0] = size[0] - self.get_width()
+            self.position[1] = size[1] - self.get_height()
         if offset is not None:
-            self.rect[0] += offset[0]
-            self.rect[1] += offset[1]
+            self.position[0] += offset[0]
+            self.position[1] += offset[1]
 
 
 CENTER = "CENTER"

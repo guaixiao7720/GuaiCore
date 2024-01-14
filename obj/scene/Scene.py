@@ -7,8 +7,11 @@ from obj.Obj import Obj
 class Scene(Obj):
     def __init__(self, game, name: str, models: dict = None, model: str or int = None):
         super().__init__(game, name)
+        self._has_camera = False
+        self._alpha = None
         self.__is_changed = False
         self.image = None
+        self.position = [0, 0]
 
         # 场景的造型字典
         if models is not None:
@@ -46,6 +49,7 @@ class Scene(Obj):
 
         if self.__is_changed and self.image is not None:
             new_image = pygame.transform.smoothscale(self.__image_bac, (self.__width, self.__height))
+            new_image.set_alpha(self._alpha)
             self.image = copy.copy(new_image)
             del new_image
 
@@ -61,25 +65,37 @@ class Scene(Obj):
             if self.tree[i].get_running():
                 try:
                     self.tree[i].run()
-                    self.tree[i].sprite_run()
-                    self.tree[i].script()
+                    try:
+                        self.tree[i].sprite_run()
+                    except AttributeError:
+                        pass
+                    try:
+                        self.tree[i].script()
+                    except AttributeError:
+                        pass
                 except AttributeError:
                     pass
             i += 1
 
     def draw(self):
         if self.image is not None:
+            if not self._has_camera:
+                self.rect[0] = self.position[0]
+                self.rect[1] = self.position[1]
 
             if self.parent_scene is None:
                 self.game.screen.blit(self.image, self.rect)
             else:
                 self.parent_scene.image.blit(self.image, self.rect)
-
         i = 0
         while i < len(self.tree):
 
             try:
                 if self.tree[i].get_view():
+                    try:
+                        self.tree[i].camera_draw()
+                    except:
+                        pass
                     self.tree[i].draw()
             except AttributeError:
                 i += 1
@@ -146,6 +162,7 @@ class Scene(Obj):
     def set_position(self, posit : list or tuple):
         self.rect[0] = posit[0]
         self.rect[1] = posit[1]
+        self.position = posit
 
     def set_width(self, num):
         self.__is_changed = True
