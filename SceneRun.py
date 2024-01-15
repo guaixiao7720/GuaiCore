@@ -20,3 +20,7 @@ class SceneRun(threading.Thread):  # 继承父类threading.Thread
         while self.game.running:
             self.game.main_scene.run()
             self.clock.tick(self.game.setting_dict["Run_clock"])
+
+    def test_run(self):
+        self.game.main_scene.run()
+        # self.clock.tick(self.game.setting_dict["Run_clock"])

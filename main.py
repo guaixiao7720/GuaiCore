@@ -17,15 +17,26 @@ if __name__ == "__main__":
 
 
         def script(self):
-            if pygame.key.get_pressed()[pygame.K_w]:
+            if self.game.event["MOUSEWHEEL"]:
+                self.set_camera_high(self.game.event["MOUSEWHEEL"])
+                self.game.event["MOUSEWHEEL"] = False
+
+        def when_keyboard_pressed(self, key):
+            if key == pygame.K_w:
                 self.camera_position[1] -= 1
-            if pygame.key.get_pressed()[pygame.K_s]:
+            if key == pygame.K_s:
                 self.camera_position[1] += 1
-            if pygame.key.get_pressed()[pygame.K_a]:
+            if key == pygame.K_a:
                 self.camera_position[0] -= 1
-            if pygame.key.get_pressed()[pygame.K_d]:
+            if key == pygame.K_d:
                 self.camera_position[0] += 1
-            pass
+            if key == pygame.K_i:
+                self.set_camera_high(1)
+            if key == pygame.K_k:
+                self.set_camera_high(-1)
+
+
+
 
         def draw(self):
             pass
@@ -38,6 +49,7 @@ if __name__ == "__main__":
             obj.scene.add_to_tree(cash, self)
 
         def script(self):
+            # print(self.game.event_obj)
             if self.is_clicked_mask(0):
                 print(1213)
 

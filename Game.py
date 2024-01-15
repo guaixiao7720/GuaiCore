@@ -29,6 +29,8 @@ class Game:
             "MOUSEBUTTONUP": False,
             "WINDOWRESIZED": False,
             "TEXTINPUT": False,
+            "SOMEONECHANGING" : False,
+            "MOUSEWHEEL" : False,
 
         }
         self.PATH = os.path.abspath(".") + "/"
@@ -46,11 +48,11 @@ class Game:
         obj.scene.add_to_tree(self.main_scene, obj.scene.controller.Mouse(self, "mouse", 1, 1))
 
         # 临时
-        self.setting_dict["Run_clock"] = 512
+        self.setting_dict["Run_clock"] = 60
 
         # 主run线程
         self.main_running = SceneRun(self)
-        self.main_running.start()
+        # self.main_running.start()
 
     def scene_append(self, sprite):
         self.main_scene.tree.append(copy.copy(sprite))
@@ -67,20 +69,21 @@ class Game:
                 # 运行主场景
                 self.main_scene.draw()
 
-            if platform.system() == "Windows":
-                pygame.display.flip()
-            elif platform.system() == "Linux":
+            self.main_running.test_run()
+            if not self.event["SOMEONECHANGING"]:
                 pygame.display.update()
 
-            self.RUN_clock.tick(self.setting_dict["FPS_clock"])  # limits FPS to 60
+            # self.RUN_clock.tick(self.setting_dict["FPS_clock"])  # limits FPS to 60
 
         del self.main_running
         pygame.quit()
         sys.exit()
 
     def __event_manager(self):
+        self.event["SOMEONECHANGING"] = False
         for event in pygame.event.get():
             self.event_obj = event
+            # print(event)
             if event.type == pygame.QUIT:
                 self.running = False
             else:
@@ -108,5 +111,10 @@ class Game:
                 pygame.key.start_text_input()
             else:
                 pygame.key.stop_text_input()
+
+            if event.type == pygame.MOUSEWHEEL:
+                self.event["MOUSEWHEEL"] = event.y
+            else:
+                self.event["MOUSEWHEEL"] = False
 
             self.event["TEXTINPUT"] = False

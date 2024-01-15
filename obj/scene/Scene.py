@@ -12,6 +12,7 @@ class Scene(Obj):
         self.__is_changed = False
         self.image = None
         self.position = [0, 0]
+        self._camera_high = 0
 
         # 场景的造型字典
         if models is not None:
@@ -29,13 +30,13 @@ class Scene(Obj):
             self.__image_bac = copy.copy(self.image)
             self.rect = self.image.get_rect()
             self.rect.move((0, 0))
-            self.__width = self.rect[2]
-            self.__height = self.rect[3]
+            self._width = self.rect[2]
+            self._height = self.rect[3]
         else:
             self.image = None
             self.__image_bac = None
-            self.__width = 0
-            self.__height = 0
+            self._width = 0
+            self._height = 0
 
         if model is None:
             self.mask = None
@@ -46,11 +47,16 @@ class Scene(Obj):
         self.tree = []
 
     def run(self):
+        try:
+            self.camera_run()
+        except AttributeError:
+            pass
 
         if self.__is_changed and self.image is not None:
-            new_image = pygame.transform.smoothscale(self.__image_bac, (self.__width, self.__height))
+            self.game.event["SOMEONECHANGING"] = True
+            new_image = pygame.transform.smoothscale(self.__image_bac, (self._width, self._height))
             new_image.set_alpha(self._alpha)
-            self.image = copy.copy(new_image)
+            self.image = copy.deepcopy(new_image)
             del new_image
 
             self.__is_changed = False
@@ -78,7 +84,7 @@ class Scene(Obj):
             i += 1
 
     def draw(self):
-        if self.image is not None:
+        if self.image is not None and not self.__is_changed:
             if not self._has_camera:
                 self.rect[0] = self.position[0]
                 self.rect[1] = self.position[1]
@@ -104,12 +110,24 @@ class Scene(Obj):
 
     def event_run(self):
         i = 0
+
+        if self.game.event_obj.type == pygame.KEYDOWN:
+            is_keydown = True
+        else:
+            is_keydown = False
+
         while i < len(self.tree):
             if self.tree[i].get_running():
                 try:
                     self.tree[i].event_run()
                 except AttributeError:
                     pass
+
+                if is_keydown:
+                    try:
+                        self.tree[i].when_keyboard_pressed(self.game.event_obj.key)
+                    except AttributeError:
+                        pass
             i += 1
 
     def set_models(self, models: dict or pygame.Surface, name: str = None):
@@ -166,16 +184,16 @@ class Scene(Obj):
 
     def set_width(self, num):
         self.__is_changed = True
-        self.__width = num
-        self.rect[2] = self.__width
+        self._width = num
+        # self.rect[2] = self._width
 
     def get_width(self):
-        return self.__width
+        return self._width
 
     def set_height(self, num):
         self.__is_changed = True
-        self.__height = num
-        self.rect[3] = self.__height
+        self._height = num
+        # self.rect[3] = self._height
 
     def get_height(self):
-        return self.__height
+        return self._height

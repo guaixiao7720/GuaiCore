@@ -57,6 +57,9 @@ class Sprite(Scene):
     def script(self):
         pass
 
+    def when_keyboard_pressed(self, key):
+        pass
+
     def move_to(self, new_position: tuple or list, speed: float = None):
         if speed is None:
             self.rect.move_to(new_position)
