@@ -23,13 +23,13 @@ if __name__ == "__main__":
             if self.game.event["MOUSEWHEEL"]:
                 pass
             if pygame.key.get_pressed()[pygame.K_w]:
-                self.position[1] -= 1
+                self.position[1] -= 10
             if pygame.key.get_pressed()[pygame.K_s]:
-                self.position[1] += 1
+                self.position[1] += 10
             if pygame.key.get_pressed()[pygame.K_a]:
-                self.position[0] -= 1
+                self.position[0] -= 10
             if pygame.key.get_pressed()[pygame.K_d]:
-                self.position[0] += 1
+                self.position[0] += 10
 
             if pygame.key.get_pressed()[pygame.K_i]:
                 self.set_window_size((self.get_width() + 20,

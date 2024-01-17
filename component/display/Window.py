@@ -37,6 +37,7 @@ class Window:
         for key in tree:
             try:
                 if key.image is not None:
+                    key._is_changed = True
                     width_precent = key.get_width() / self.get_width()
                     height_precent = key.get_height() / self.get_height()
                     x_precent = abs((key.position[0]) / self.get_width())
@@ -49,7 +50,7 @@ class Window:
                     key.position[1] = window_new_size[1] * y_precent
 
 
-                    key._is_changed = True
+
             except AttributeError:
                 pass
             finally:

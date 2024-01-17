@@ -38,11 +38,6 @@ class Scene(Obj):
             self._width = 0
             self._height = 0
 
-        if model is None:
-            self.mask = None
-        else:
-            self.mask = pygame.mask.from_surface(self.image)
-
         # 场景树列表
         self.tree = []
 
@@ -63,12 +58,14 @@ class Scene(Obj):
             self.image = copy.deepcopy(new_image)
             del new_image
 
-            self._is_changed = False
+
 
             try:
-                self.change_mask_from_image()
+                if self.mask:
+                    self.change_mask_from_image()
             except AttributeError:
                 pass
+            self._is_changed = False
 
         i = 0
         while i < len(self.tree):
@@ -97,8 +94,6 @@ class Scene(Obj):
             #     self.game.screen.blit(self.image, self.rect)
             # else:
             #     self.parent_scene.image.blit(self.image, self.rect)
-            if not self._is_changed and self.mask:
-                self.change_mask_from_image()
 
             if not self.image.get_locked():
                 self.game.screen.blit(self.image, self.rect)
