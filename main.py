@@ -10,36 +10,44 @@ if __name__ == "__main__":
     pygame.init()
     PATH = os.path.abspath(".") + "/"
 
-    class test(obj.scene.gui.BackGround, component.interface.Interaction, component.display.Camera):
+    class test(obj.scene.Sprite, component.interface.Interaction, component.display.Window):
         def __init__(self, game):
             super().__init__(game, "测试", {1: pygame.image.load(PATH + "test_bg.png")}, 1)
-            self.camera_init()
+            self.window_init()
+            self.show()
+            obj.scene.add_to_tree(game.main_scene, self)
 
 
         def script(self):
             if self.game.event["MOUSEWHEEL"]:
-                self.set_camera_high(self.game.event["MOUSEWHEEL"])
-                self.game.event["MOUSEWHEEL"] = False
+                self.set_window_size((self.get_width() + self.game.event["MOUSEWHEEL"], self.get_height() + self.game.event["MOUSEWHEEL"]))
+            if pygame.key.get_pressed()[pygame.K_w]:
+                self.position[1] -= 1
+            if pygame.key.get_pressed()[pygame.K_s]:
+                self.position[1] += 1
+            if pygame.key.get_pressed()[pygame.K_a]:
+                self.position[0] -= 1
+            if pygame.key.get_pressed()[pygame.K_d]:
+                self.position[0] += 1
+            self.window_run()
 
         def when_keyboard_pressed(self, key):
-            if key == pygame.K_w:
-                self.camera_position[1] -= 1
-            if key == pygame.K_s:
-                self.camera_position[1] += 1
-            if key == pygame.K_a:
-                self.camera_position[0] -= 1
-            if key == pygame.K_d:
-                self.camera_position[0] += 1
-            if key == pygame.K_i:
-                self.set_camera_high(1)
-            if key == pygame.K_k:
-                self.set_camera_high(-1)
-
-
-
-
-        def draw(self):
+            # if key == pygame.K_w:
+            #     self.position[1] -= 1
+            # if key == pygame.K_s:
+            #     self.position[1] += 1
+            # if key == pygame.K_a:
+            #     self.position[0] -= 1
+            # if key == pygame.K_d:
+            #     self.position[0] += 1
+            # if key == pygame.K_i:
+            #     pass
+            # if key == pygame.K_k:
+            #     pass
             pass
+
+
+
 
     class Sans(obj.scene.Sprite, component.interface.Interaction):
         def __init__(self, game):
@@ -80,7 +88,7 @@ if __name__ == "__main__":
     game.PATH = PATH
 
     cash = test(game)
-    cash.reset_background_size()
+    # cash.reset_background_size()
     cash.show()
     cash.start()
     obj.scene.add_to_tree(game.main_scene, cash)
@@ -101,7 +109,7 @@ if __name__ == "__main__":
     cach.show()
     cach.start()
 
-    obj.scene.add_to_tree(cash, cach)
+    # obj.scene.add_to_tree(cash, cach)
 
     text1 = obj.scene.gui.Text(game, "111", "你好", 20)
 
@@ -109,19 +117,31 @@ if __name__ == "__main__":
     text1.set_location(obj.scene.gui.CENTER)
     text1.show()
     text1.start()
-    obj.scene.add_to_tree(cach, text1)
 
     input1 = obj.scene.textInput.TextInput.Textinput(game, "测试输入框", 150, 40, 15, 15)
     input1.show()
     obj.scene.add_to_tree(cash, input1)
 
     obj.get_obj_from_name(game.name_dict, "测试2").hide()
+    obj.get_obj_from_name(game.name_dict, "测试2").stop()
 
     bgm = obj.sound.Music(game, "TOBY", {"1" : pygame.mixer.Sound(PATH+"Bring_it_in.ogg")}, "1")
 
     bgm.play_start(5)
 
     sans = Sans(game)
+    sans.hide()
 
+    gezi1 = obj.scene.Sprite(game, "gezi1", {1: pygame.image.load(PATH + "box2.png")}, 1)
+    gezi1.show()
+    gezi1.position = [700, 150]
+
+    obj.scene.add_to_tree(obj.get_obj_from_name(game.name_dict, "测试"), gezi1)
+
+    gezi2 = obj.scene.Sprite(game, "gezi2", {1: pygame.image.load(PATH + "box2.png")}, 1)
+    gezi2.show()
+    gezi2.position = [gezi1.rect[2] + 700, 150]
+
+    obj.scene.add_to_tree(obj.get_obj_from_name(game.name_dict, "测试"), gezi2)
     game.start()
 

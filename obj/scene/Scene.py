@@ -7,12 +7,11 @@ from obj.Obj import Obj
 class Scene(Obj):
     def __init__(self, game, name: str, models: dict = None, model: str or int = None):
         super().__init__(game, name)
-        self._has_camera = False
+        self._is_window = False
         self._alpha = None
-        self.__is_changed = False
+        self._is_changed = False
         self.image = None
         self.position = [0, 0]
-        self._camera_high = 0
 
         # 场景的造型字典
         if models is not None:
@@ -48,18 +47,22 @@ class Scene(Obj):
 
     def run(self):
         try:
-            self.camera_run()
+            self.window_run()
         except AttributeError:
             pass
 
-        if self.__is_changed and self.image is not None:
+        if self.image is not None:
+            self.rect[2] = int(self.get_width())
+            self.rect[3] = int(self._height)
+
+        if self._is_changed and self.image is not None:
             self.game.event["SOMEONECHANGING"] = True
-            new_image = pygame.transform.smoothscale(self.__image_bac, (self._width, self._height))
+            new_image = pygame.transform.smoothscale(self.__image_bac, (int(self._width), int(self._height)))
             new_image.set_alpha(self._alpha)
             self.image = copy.deepcopy(new_image)
             del new_image
 
-            self.__is_changed = False
+            self._is_changed = False
 
             try:
                 self.change_mask_from_image()
@@ -84,24 +87,22 @@ class Scene(Obj):
             i += 1
 
     def draw(self):
-        if self.image is not None and not self.__is_changed:
-            if not self._has_camera:
+        if self.image is not None and not self._is_changed:
+            if not self.parent_scene._is_window:
                 self.rect[0] = self.position[0]
                 self.rect[1] = self.position[1]
 
-            if self.parent_scene is None:
-                self.game.screen.blit(self.image, self.rect)
-            else:
-                self.parent_scene.image.blit(self.image, self.rect)
+            # if self.parent_scene is None:
+            #     self.game.screen.blit(self.image, self.rect)
+            # else:
+            #     self.parent_scene.image.blit(self.image, self.rect)
+
+            self.game.screen.blit(self.image, self.rect)
         i = 0
         while i < len(self.tree):
 
             try:
                 if self.tree[i].get_view():
-                    try:
-                        self.tree[i].camera_draw()
-                    except:
-                        pass
                     self.tree[i].draw()
             except AttributeError:
                 i += 1
@@ -143,12 +144,12 @@ class Scene(Obj):
         elif isinstance(models, pygame.Surface) and name is not None:
             self.models[name] = copy.deepcopy(models)
 
-        self.__is_changed = True
+        self._is_changed = True
 
     def set_image(self, name):
         self.image = self.models[name]
         self.image_name = name
-        self.__is_changed = True
+        self._is_changed = True
 
     def when_window_resize_run(self):
         i = 0
@@ -159,7 +160,7 @@ class Scene(Obj):
                 except AttributeError:
                     pass
             i += 1
-        self.__is_changed = True
+        self._is_changed = True
 
     def hide(self):
         self.__view = False
@@ -177,13 +178,13 @@ class Scene(Obj):
     def change_mask_from_image(self):
         self.mask = pygame.mask.from_surface(self.image)
 
-    def set_position(self, posit : list or tuple):
-        self.rect[0] = posit[0]
-        self.rect[1] = posit[1]
-        self.position = posit
+    # def set_position(self, posit : list or tuple):
+    #     self.rect[0] = posit[0]
+    #     self.rect[1] = posit[1]
+    #     self.position = posit
 
     def set_width(self, num):
-        self.__is_changed = True
+        self._is_changed = True
         self._width = num
         # self.rect[2] = self._width
 
@@ -191,7 +192,7 @@ class Scene(Obj):
         return self._width
 
     def set_height(self, num):
-        self.__is_changed = True
+        self._is_changed = True
         self._height = num
         # self.rect[3] = self._height
 
