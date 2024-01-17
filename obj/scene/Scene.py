@@ -11,6 +11,7 @@ class Scene(Obj):
         self._alpha = None
         self._is_changed = False
         self.image = None
+        self.__image_cache = copy.deepcopy(self.image)
         self.position = [0, 0]
 
         # 场景的造型字典
@@ -57,7 +58,7 @@ class Scene(Obj):
 
         if self._is_changed and self.image is not None:
             self.game.event["SOMEONECHANGING"] = True
-            new_image = pygame.transform.smoothscale(self.__image_bac, (int(self._width), int(self._height)))
+            new_image = pygame.transform.scale(self.__image_bac, (int(self._width), int(self._height)))
             new_image.set_alpha(self._alpha)
             self.image = copy.deepcopy(new_image)
             del new_image
@@ -96,8 +97,13 @@ class Scene(Obj):
             #     self.game.screen.blit(self.image, self.rect)
             # else:
             #     self.parent_scene.image.blit(self.image, self.rect)
+            if not self._is_changed and self.mask:
+                self.change_mask_from_image()
+
             if not self.image.get_locked():
                 self.game.screen.blit(self.image, self.rect)
+            else:
+                self.game.screen.blit(self._image_cache, self.rect)
         i = 0
         while i < len(self.tree):
 
@@ -170,6 +176,8 @@ class Scene(Obj):
 
     def get_view(self):
         return self.__view
+    def disable_mask(self):
+        self.mask = False
 
     def set_parent_scene(self, parent_scene):
         # 指针

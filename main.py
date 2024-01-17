@@ -15,6 +15,7 @@ if __name__ == "__main__":
             super().__init__(game, "测试", {1: pygame.image.load(PATH + "test_bg.png")}, 1)
             self.window_init()
             self.show()
+            self.disable_mask()
             obj.scene.add_to_tree(game.main_scene, self)
 
 
@@ -31,12 +32,12 @@ if __name__ == "__main__":
                 self.position[0] += 1
 
             if pygame.key.get_pressed()[pygame.K_i]:
-                self.set_window_size((self.get_width() + 5,
-                                      self.get_height() + 5))
+                self.set_window_size((self.get_width() + 20,
+                                      self.get_height() + 20))
 
             if pygame.key.get_pressed()[pygame.K_k]:
-                self.set_window_size((self.get_width() - 5,
-                                      self.get_height() - 5))
+                self.set_window_size((self.get_width() - 20,
+                                      self.get_height() - 20))
 
             self.window_run()
 

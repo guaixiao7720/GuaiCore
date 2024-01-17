@@ -1,3 +1,5 @@
+import copy
+
 import pygame
 
 
@@ -11,6 +13,8 @@ class Window:
 
     def set_window_size(self, new_size: list or tuple[int]):
         self.__tree_size_precent(self.tree, new_size)
+
+        self._image_cache = copy.deepcopy(self.image)
 
         self.position[0] += self.get_width() - new_size[0]
         self.position[1] += self.get_height() - new_size[1]
