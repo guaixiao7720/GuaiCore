@@ -20,7 +20,7 @@ if __name__ == "__main__":
 
         def script(self):
             if self.game.event["MOUSEWHEEL"]:
-                self.set_window_size((self.get_width() + self.game.event["MOUSEWHEEL"], self.get_height() + self.game.event["MOUSEWHEEL"]))
+                pass
             if pygame.key.get_pressed()[pygame.K_w]:
                 self.position[1] -= 1
             if pygame.key.get_pressed()[pygame.K_s]:
@@ -29,6 +29,15 @@ if __name__ == "__main__":
                 self.position[0] -= 1
             if pygame.key.get_pressed()[pygame.K_d]:
                 self.position[0] += 1
+
+            if pygame.key.get_pressed()[pygame.K_i]:
+                self.set_window_size((self.get_width() + 5,
+                                      self.get_height() + 5))
+
+            if pygame.key.get_pressed()[pygame.K_k]:
+                self.set_window_size((self.get_width() - 5,
+                                      self.get_height() - 5))
+
             self.window_run()
 
         def when_keyboard_pressed(self, key):

@@ -48,11 +48,11 @@ class Game:
         obj.scene.add_to_tree(self.main_scene, obj.scene.controller.Mouse(self, "mouse", 1, 1))
 
         # 临时
-        self.setting_dict["Run_clock"] = 60
+        self.setting_dict["Run_clock"] = 512
 
         # 主run线程
         self.main_running = SceneRun(self)
-        # self.main_running.start()
+        self.main_running.start()
 
     def scene_append(self, sprite):
         self.main_scene.tree.append(copy.copy(sprite))
@@ -69,11 +69,11 @@ class Game:
                 # 运行主场景
                 self.main_scene.draw()
 
-            self.main_running.test_run()
+            # self.main_running.test_run()
             if not self.event["SOMEONECHANGING"]:
                 pygame.display.update()
 
-            # self.RUN_clock.tick(self.setting_dict["FPS_clock"])  # limits FPS to 60
+            self.RUN_clock.tick(self.setting_dict["FPS_clock"])  # limits FPS to 60
 
         del self.main_running
         pygame.quit()

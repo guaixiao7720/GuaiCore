@@ -87,7 +87,7 @@ class Scene(Obj):
             i += 1
 
     def draw(self):
-        if self.image is not None and not self._is_changed:
+        if self.image is not None:
             if not self.parent_scene._is_window:
                 self.rect[0] = self.position[0]
                 self.rect[1] = self.position[1]
@@ -96,8 +96,8 @@ class Scene(Obj):
             #     self.game.screen.blit(self.image, self.rect)
             # else:
             #     self.parent_scene.image.blit(self.image, self.rect)
-
-            self.game.screen.blit(self.image, self.rect)
+            if not self.image.get_locked():
+                self.game.screen.blit(self.image, self.rect)
         i = 0
         while i < len(self.tree):
 
