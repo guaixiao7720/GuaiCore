@@ -102,9 +102,9 @@ class Window:
             if pygame.mouse.get_pressed(3)[0] and pygame.sprite.collide_rect(self, get_obj_from_name(self.game.name_dict, "mouse")):
                 self.second_pos = pygame.mouse.get_pos()
                 if self.scroll_vertically:
-                    self.__tree_scroll_vertically(self.tree, (int(self.second_pos[1] - self.first_pos[1]) * self.__sensitivity))
+                    self.__tree_scroll_vertically(self.tree, -(int(self.second_pos[1] - self.first_pos[1]) * self.__sensitivity))
                 if self.scroll_horizontal:
-                    self.__tree_scroll_horizontal(self.tree, (int(self.second_pos[0] - self.first_pos[0]) * self.__sensitivity))
+                    self.__tree_scroll_horizontal(self.tree, -(int(self.second_pos[0] - self.first_pos[0]) * self.__sensitivity))
 
             else:
                 self.__is_scrolling = False
