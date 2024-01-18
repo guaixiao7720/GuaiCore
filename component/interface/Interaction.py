@@ -9,17 +9,12 @@ class Interaction(Scene):
         super().__init__(game, name, models, model)
         self.text_input = None
 
-    def is_clicked_rect(self, num: int):
-        mouse_pos_boolx = self.image.get_size()[0] + self.rect[0] > pygame.mouse.get_pos()[0] > self.rect[0]
-        mouse_pos_booly = self.image.get_size()[1] + self.rect[1] > pygame.mouse.get_pos()[1] > self.rect[1]
-
-        if self.game.event["MOUSEBUTTONDOWN"]  and pygame.mouse.get_pressed(5)[num] and mouse_pos_boolx and mouse_pos_booly:
-            self.game.event["MOUSEBUTTONDOWN"] = False
-            del mouse_pos_boolx, mouse_pos_booly
-            return True
-        else:
-            del mouse_pos_boolx, mouse_pos_booly
-            return False
+    def is_clicked_rect(self, butt: int):
+        if pygame.sprite.collide_rect(self, get_obj_from_name(self.game.name_dict, "mouse")):
+            if pygame.mouse.get_pressed(5)[butt] and self.game.event["MOUSEBUTTONDOWN"]:
+                self.game.event["MOUSEBUTTONDOWN"] = False
+                return True
+        return False
 
     def is_clicked_mask(self, butt: int):
         if pygame.sprite.collide_mask(self, get_obj_from_name(self.game.name_dict, "mouse")):
