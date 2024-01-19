@@ -7,8 +7,11 @@ from obj import get_obj_from_name
 
 class Window:
 
-    def window_init(self, scroll_vertical: bool, scroll_horizontal: bool, sensitivity: int = 100):
+    def window_init(self, scroll_vertical: bool = False, scroll_horizontal: bool = False, sensitivity: int = 100, drag: bool = False):
         self._is_window = True
+
+        # 窗口是否支持拖动
+        self.drag = False
 
         # 该 window 组件是否支持垂直滚动
         self.scroll_vertically = scroll_vertical
@@ -22,10 +25,21 @@ class Window:
 
             # 灵敏度 百分比修正
             self.__sensitivity = sensitivity / 100
+        else:
+            self.__is_scrolling = False
+            self.first_pos = (0, 0)
+            self.second_pos = (0, 0)
+
+            # 灵敏度 百分比修正
+            self.__sensitivity = sensitivity / 100
+
+            self.drag = drag
 
     def window_run(self):
         if self.scroll_vertically or self.scroll_horizontal:
             self.__scroll_run()
+        elif self.drag:
+            self.__drag_run()
 
         self.__tree_position_precent(self.tree)
 
@@ -93,7 +107,7 @@ class Window:
 
         if not self.__is_scrolling:
 
-            if pygame.sprite.collide_rect(self, get_obj_from_name(self.game.name_dict, "mouse")):
+            if pygame.sprite.collide_rect(self, get_obj_from_name(self.game.name_dict, "mouse")) and pygame.mouse.get_pressed(3)[0]:
                 self.first_pos = pygame.mouse.get_pos()
                 self.__is_scrolling = True
 
@@ -102,10 +116,29 @@ class Window:
             if pygame.mouse.get_pressed(3)[0] and pygame.sprite.collide_rect(self, get_obj_from_name(self.game.name_dict, "mouse")):
                 self.second_pos = pygame.mouse.get_pos()
                 if self.scroll_vertically:
-                    self.__tree_scroll_vertically(self.tree, -(int(self.second_pos[1] - self.first_pos[1]) * self.__sensitivity))
+                    self.__tree_scroll_vertically(self.tree, (int(self.second_pos[1] - self.first_pos[1]) * self.__sensitivity))
                 if self.scroll_horizontal:
-                    self.__tree_scroll_horizontal(self.tree, -(int(self.second_pos[0] - self.first_pos[0]) * self.__sensitivity))
+                    self.__tree_scroll_horizontal(self.tree, (int(self.second_pos[0] - self.first_pos[0]) * self.__sensitivity))
+                self.first_pos = pygame.mouse.get_pos()
+            else:
+                self.__is_scrolling = False
 
+    def __drag_run(self):
+
+        if not self.__is_scrolling:
+
+            if pygame.sprite.collide_rect(self, get_obj_from_name(self.game.name_dict, "mouse")) and pygame.mouse.get_pressed(3)[0]:
+                self.first_pos = pygame.mouse.get_pos()
+                self.__is_scrolling = True
+
+
+        else:
+            if pygame.mouse.get_pressed(3)[0] and pygame.sprite.collide_rect(self, get_obj_from_name(self.game.name_dict, "mouse")):
+                self.second_pos = pygame.mouse.get_pos()
+                self.position[0] += (self.second_pos[0] - self.first_pos[0]) * self.__sensitivity
+                self.position[1] += (self.second_pos[1] - self.first_pos[1]) * self.__sensitivity
+
+                self.first_pos = pygame.mouse.get_pos()
             else:
                 self.__is_scrolling = False
 

@@ -13,7 +13,7 @@ if __name__ == "__main__":
     class test(obj.scene.Sprite, component.interface.Interaction, component.display.Window):
         def __init__(self, game):
             super().__init__(game, "测试", {1: pygame.image.load(PATH + "test_bg.png")}, 1)
-            self.window_init(False, True, 20)
+            self.window_init(False, False, 100, True)
             self.show()
             self.disable_mask()
             obj.scene.add_to_tree(game.main_scene, self)
