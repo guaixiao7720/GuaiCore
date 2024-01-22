@@ -13,7 +13,7 @@ if __name__ == "__main__":
     class test(obj.scene.Sprite, component.interface.Interaction, component.display.Window):
         def __init__(self, game):
             super().__init__(game, "测试", {1: pygame.image.load(PATH + "test_bg.png")}, 1)
-            self.window_init()
+            self.window_init(False, False, 100, True)
             self.show()
             self.disable_mask()
             obj.scene.add_to_tree(game.main_scene, self)
@@ -57,7 +57,14 @@ if __name__ == "__main__":
             pass
 
 
-
+    class Fps_label(obj.scene.gui.Text):
+        def __init__(self, game):
+            super().__init__(game, "fps", "", 20)
+            self.show()
+            self.set_text("FPS: " + str(self.game.RUN_clock.get_fps()), 20, False, (255,255,255), (100,100), (0,0,0))
+            obj.scene.add_to_tree(game.main_scene, self)
+        def script(self):
+            self.set_text("FPS: " + str(self.game.RUN_clock.get_fps()), 20, False, (255,255,255), (100,100), (0,0,0))
 
     class Sans(obj.scene.Sprite, component.interface.Interaction):
         def __init__(self, game):
@@ -130,7 +137,7 @@ if __name__ == "__main__":
 
     input1 = obj.scene.textInput.TextInput.Textinput(game, "测试输入框", 150, 40, 15, 15)
     input1.show()
-    obj.scene.add_to_tree(cash, input1)
+    obj.scene.add_to_tree(game.main_scene, input1)
 
     obj.get_obj_from_name(game.name_dict, "测试2").hide()
     obj.get_obj_from_name(game.name_dict, "测试2").stop()
@@ -140,7 +147,6 @@ if __name__ == "__main__":
     bgm.play_start(5)
 
     sans = Sans(game)
-    sans.hide()
 
     gezi1 = obj.scene.Sprite(game, "gezi1", {1: pygame.image.load(PATH + "box2.png")}, 1)
     gezi1.show()
@@ -153,5 +159,7 @@ if __name__ == "__main__":
     gezi2.position = [gezi1.rect[2] + 700, 150]
 
     obj.scene.add_to_tree(obj.get_obj_from_name(game.name_dict, "测试"), gezi2)
+
+    fps = Fps_label(game)
     game.start()
 
