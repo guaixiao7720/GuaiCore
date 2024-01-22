@@ -3,7 +3,7 @@ import os
 
 import pygame
 
-PATH = os.path.abspath(".") + "/"
+PATH = os.path.abspath("") + "/"
 
 
 def load(game: str):
@@ -30,7 +30,7 @@ def load_fonts():
 def is_first_run():
     """检查引擎是否是第一次运行"""
     # 通过查看setting\hello.txt 的内容判断 请勿随便修改
-    setting = open(f"..\\setting\\hello.txt", "r+")
+    setting = open(f"../../setting/hello.txt", "r+")
     if setting.readlines()[0] == "True":
         setting.writelines(["False"])
         setting.close()

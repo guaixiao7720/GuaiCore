@@ -1,13 +1,12 @@
 import copy
 import os
-import platform
 import sys
 
 import pygame
 
-import obj
-import tools
-from SceneRun import SceneRun
+from . import obj
+from .SceneRun import SceneRun
+from . import tools
 
 
 def new_game(name: str, screen: pygame.Surface):
@@ -33,7 +32,7 @@ class Game:
             "MOUSEWHEEL" : False,
 
         }
-        self.PATH = os.path.abspath(".") + "/"
+        self.PATH = os.path.abspath("..") + "/"
 
         # obj名字字典
         self.name_dict = {}

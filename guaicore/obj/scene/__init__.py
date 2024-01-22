@@ -1,6 +1,6 @@
-import obj.scene.gui
-import obj.scene.textInput
-import obj.scene.controller
+from . import controller
+from . import gui
+from . import textInput
 
 from .Scene import Scene
 from .Sprite import Sprite

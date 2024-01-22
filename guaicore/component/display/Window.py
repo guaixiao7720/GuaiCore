@@ -2,7 +2,7 @@ import copy
 
 import pygame
 
-from obj import get_obj_from_name
+from ...obj import get_obj_from_name
 
 
 class Window:

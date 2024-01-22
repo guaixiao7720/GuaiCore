@@ -2,21 +2,19 @@ import os
 
 import pygame
 
-import Game
-import obj
-import component
+import guaicore
 
 if __name__ == "__main__":
     pygame.init()
     PATH = os.path.abspath(".") + "/"
 
-    class test(obj.scene.Sprite, component.interface.Interaction, component.display.Window):
+    class test(guaicore.obj.scene.Sprite, guaicore.component.interface.Interaction, guaicore.component.display.Window):
         def __init__(self, game):
             super().__init__(game, "测试", {1: pygame.image.load(PATH + "test_bg.png")}, 1)
             self.window_init(False, False, 100, True)
             self.show()
             self.disable_mask()
-            obj.scene.add_to_tree(game.main_scene, self)
+            guaicore.obj.scene.add_to_tree(game.main_scene, self)
 
 
         def script(self):
@@ -57,21 +55,21 @@ if __name__ == "__main__":
             pass
 
 
-    class Fps_label(obj.scene.gui.Text):
+    class Fps_label(guaicore.obj.scene.gui.Text):
         def __init__(self, game):
             super().__init__(game, "fps", "", 20)
             self.show()
             self.set_text("FPS: " + str(self.game.RUN_clock.get_fps()), 20, False, (255,255,255), (100,100), (0,0,0))
-            obj.scene.add_to_tree(game.main_scene, self)
+            guaicore.obj.scene.add_to_tree(game.main_scene, self)
         def script(self):
             self.set_text("FPS: " + str(self.game.RUN_clock.get_fps()), 20, False, (255,255,255), (100,100), (0,0,0))
 
-    class Sans(obj.scene.Sprite, component.interface.Interaction):
+    class Sans(guaicore.obj.scene.Sprite, guaicore.component.interface.Interaction):
         def __init__(self, game):
             super().__init__(game, "sans", {1: pygame.image.load(f"{PATH}sans.png")}, 1)
             self.position = [250, 250]
             self.show()
-            obj.scene.add_to_tree(cash, self)
+            guaicore.obj.scene.add_to_tree(cash, self)
 
         def script(self):
             # print(self.game.event_obj)
@@ -79,7 +77,7 @@ if __name__ == "__main__":
                 print(1213)
 
 
-    class test2(obj.scene.Sprite, component.interface.Interaction):
+    class test2(guaicore.obj.scene.Sprite, guaicore.component.interface.Interaction):
         def __init__(self, game):
             super().__init__(game, "测试2", {1: pygame.image.load(PATH + "box2.png")}, 1)
 
@@ -100,7 +98,7 @@ if __name__ == "__main__":
 
 
 
-    game = Game.new_game("Human", pygame.display.set_mode((1024, 700), pygame.RESIZABLE))
+    game = guaicore.new_game("Human", pygame.display.set_mode((1024, 700), pygame.RESIZABLE))
 
     game.PATH = PATH
 
@@ -108,15 +106,15 @@ if __name__ == "__main__":
     # cash.reset_background_size()
     cash.show()
     cash.start()
-    obj.scene.add_to_tree(game.main_scene, cash)
+    guaicore.obj.scene.add_to_tree(game.main_scene, cash)
 
     cash2 = test2(game)
     cash2.show()
     cash2.run()
-    obj.scene.add_to_tree(cash, cash2)
+    guaicore.obj.scene.add_to_tree(cash, cash2)
 
-    cach = obj.scene.gui.GUI(game, "测试场景", {"哈哈哈": pygame.image.load(PATH + "box2.png")}, "哈哈哈")
-    cach.set_location(obj.scene.gui.DIRECTLY_BELOW)
+    cach = guaicore.obj.scene.gui.GUI(game, "测试场景", {"哈哈哈": pygame.image.load(PATH + "box2.png")}, "哈哈哈")
+    cach.set_location(guaicore.obj.scene.gui.DIRECTLY_BELOW)
 
     game.setting_dict["UI_scaling"] = -40
     cach.scale_run()
@@ -126,39 +124,39 @@ if __name__ == "__main__":
     cach.show()
     cach.start()
 
-    # obj.scene.add_to_tree(cash, cach)
+    # guaicore.obj.scene.add_to_tree(cash, cach)
 
-    text1 = obj.scene.gui.Text(game, "111", "你好", 20)
+    text1 = guaicore.obj.scene.gui.Text(game, "111", "你好", 20)
 
     text1.set_text("你好", 20, False, (0, 0, 0), text1.rect)
-    text1.set_location(obj.scene.gui.CENTER)
+    text1.set_location(guaicore.obj.scene.gui.CENTER)
     text1.show()
     text1.start()
 
-    input1 = obj.scene.textInput.TextInput.Textinput(game, "测试输入框", 150, 40, 15, 15)
+    input1 = guaicore.obj.scene.textInput.TextInput.Textinput(game, "测试输入框", 150, 40, 15, 15)
     input1.show()
-    obj.scene.add_to_tree(game.main_scene, input1)
+    guaicore.obj.scene.add_to_tree(game.main_scene, input1)
 
-    obj.get_obj_from_name(game.name_dict, "测试2").hide()
-    obj.get_obj_from_name(game.name_dict, "测试2").stop()
+    guaicore.obj.get_obj_from_name(game.name_dict, "测试2").hide()
+    guaicore.obj.get_obj_from_name(game.name_dict, "测试2").stop()
 
-    bgm = obj.sound.Music(game, "TOBY", {"1" : pygame.mixer.Sound(PATH+"Bring_it_in.ogg")}, "1")
+    bgm = guaicore.obj.sound.Music(game, "TOBY", {"1" : pygame.mixer.Sound(PATH+"Bring_it_in.ogg")}, "1")
 
     bgm.play_start(5)
 
     sans = Sans(game)
 
-    gezi1 = obj.scene.Sprite(game, "gezi1", {1: pygame.image.load(PATH + "box2.png")}, 1)
+    gezi1 = guaicore.obj.scene.Sprite(game, "gezi1", {1: pygame.image.load(PATH + "box2.png")}, 1)
     gezi1.show()
     gezi1.position = [700, 150]
 
-    obj.scene.add_to_tree(obj.get_obj_from_name(game.name_dict, "测试"), gezi1)
+    guaicore.obj.scene.add_to_tree(guaicore.obj.get_obj_from_name(game.name_dict, "测试"), gezi1)
 
-    gezi2 = obj.scene.Sprite(game, "gezi2", {1: pygame.image.load(PATH + "box2.png")}, 1)
+    gezi2 = guaicore.obj.scene.Sprite(game, "gezi2", {1: pygame.image.load(PATH + "box2.png")}, 1)
     gezi2.show()
     gezi2.position = [gezi1.rect[2] + 700, 150]
 
-    obj.scene.add_to_tree(obj.get_obj_from_name(game.name_dict, "测试"), gezi2)
+    guaicore.obj.scene.add_to_tree(guaicore.obj.get_obj_from_name(game.name_dict, "测试"), gezi2)
 
     fps = Fps_label(game)
     game.start()

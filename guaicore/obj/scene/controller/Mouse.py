@@ -1,6 +1,6 @@
 import pygame
 
-from obj.scene.Sprite import Sprite
+from ..Sprite import Sprite
 
 
 class Mouse(Sprite):

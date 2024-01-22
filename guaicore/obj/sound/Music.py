@@ -1,6 +1,6 @@
 import pygame
 
-from obj.Obj import Obj
+from ...obj.Obj import Obj
 
 
 # 未完成

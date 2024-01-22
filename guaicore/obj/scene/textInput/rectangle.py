@@ -1,6 +1,6 @@
 import pygame
 
-from obj.scene.textInput.border import border
+from guaicore.obj.scene.textInput.border import border
 
 
 class rectangle:

@@ -1,7 +1,7 @@
 import pygame
 import copy
 
-from obj.Obj import Obj
+from ..Obj import Obj
 
 
 class Scene(Obj):

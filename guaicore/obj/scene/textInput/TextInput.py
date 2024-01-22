@@ -2,7 +2,7 @@ import os
 
 import pygame
 
-from obj.scene.Scene import Scene
+from guaicore.obj.scene.Scene import Scene
 
 from .border import border
 from .rectangle import rectangle

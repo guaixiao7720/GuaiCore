@@ -1,7 +1,7 @@
 import pygame
 
-from obj.scene.Scene import Scene
-from obj import get_obj_from_name
+from guaicore.obj.scene.Scene import Scene
+from ...obj import get_obj_from_name
 
 
 class Interaction(Scene):
