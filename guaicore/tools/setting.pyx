@@ -1,18 +1,20 @@
 import json
 import os
+from typing import TextIO
+from .. cimport Game
 
 import pygame
 
-PATH = os.path.abspath("") + "/"
+cdef PATH = os.path.abspath("") + "/"
 
 
-def load(game: str):
+cdef public str load(Game.Game game):
     """读取GuaiCore设置文件"""
 
     # 后面需要修改 当前仅测试用
-    setting = open(f"{PATH}setting/{game}.json", "r")
+    cdef TextIO setting = open(f"{PATH}setting/{game}.json", "r")
 
-    str1 = setting.readlines()[0]
+    cdef str str1 = setting.readlines()[0]
     setting.close()
 
     return json.loads(str1)

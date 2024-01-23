@@ -9,20 +9,20 @@ from .SceneRun import SceneRun
 from . import tools
 
 
-def new_game(name: str, screen: pygame.Surface):
+cdef new_game(name: str, screen: pygame.Surface):
     return Game(name, screen=screen)
 
 
-class Game:
+cdef class Game:
 
     def __init__(self, name: str, screen: pygame.Surface):
-        self.PATH = None
-        self.running = None
+        self.PATH = os.path.abspath('.') + "/"
+        self.running = True
         self.screen = screen
         self.name = name
         self.RUN_clock = pygame.time.Clock()
         self.setting_dict = tools.setting.load(self.name)
-        self.bg_color = [0, 0, 0]
+        self.bg_color = pygame.Color((0 ,0 ,0))
         self.event = {
             "MOUSEBUTTONDOWN": False,
             "MOUSEBUTTONUP": False,
@@ -32,7 +32,6 @@ class Game:
             "MOUSEWHEEL" : False,
 
         }
-        self.PATH = os.path.abspath("..") + "/"
 
         # obj名字字典
         self.name_dict = {}
@@ -56,7 +55,7 @@ class Game:
     def scene_append(self, sprite):
         self.main_scene.tree.append(copy.copy(sprite))
 
-    def start(self):
+    cdef public void start(self):
         self.running = True
 
         while self.running:
@@ -78,7 +77,7 @@ class Game:
         pygame.quit()
         sys.exit()
 
-    def __event_manager(self):
+    cdef void __event_manager(self):
         self.event["SOMEONECHANGING"] = False
         for event in pygame.event.get():
             self.event_obj = event

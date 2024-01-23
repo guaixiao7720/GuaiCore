@@ -1,6 +1,6 @@
 import pygame
 
-class Surface:
-    def set_alpha(self, num: int or None):
+cdef class Surface:
+    def set_alpha(self, int num):
         self.__alpha = num
         self.__is_changed = True

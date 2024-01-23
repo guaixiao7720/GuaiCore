@@ -4,7 +4,7 @@ import threading
 import pygame
 
 
-class SceneRun(threading.Thread):  # 继承父类threading.Thread
+cdef class SceneRun(threading.Thread):  # 继承父类threading.Thread
     def __init__(self, game):
 
         threading.Thread.__init__(self)
@@ -21,6 +21,6 @@ class SceneRun(threading.Thread):  # 继承父类threading.Thread
             self.game.main_scene.run()
             self.clock.tick(self.game.setting_dict["Run_clock"])
 
-    def test_run(self):
+    cdef public void test_run(self):
         self.game.main_scene.run()
         # self.clock.tick(self.game.setting_dict["Run_clock"])

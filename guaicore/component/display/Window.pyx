@@ -5,9 +5,9 @@ import pygame
 from ...obj import get_obj_from_name
 
 
-class Window:
+cdef class Window:
 
-    def window_init(self, scroll_vertical: bool = False, scroll_horizontal: bool = False, sensitivity: int = 100, drag: bool = False):
+    cdef public void window_init(self, bint scroll_vertical = False, bint scroll_horizontal = False, float sensitivity = 100.0, bint drag = False):
         self._is_window = True
 
         # 窗口是否支持拖动
@@ -35,7 +35,7 @@ class Window:
 
             self.drag = drag
 
-    def window_run(self):
+    cdef public void window_run(self):
         if self.scroll_vertically or self.scroll_horizontal:
             self.__scroll_run()
         elif self.drag:
@@ -43,7 +43,7 @@ class Window:
 
         self.__tree_position_precent(self.tree)
 
-    def set_window_size(self, new_size: list or tuple[int]):
+    cdef public void set_window_size(self, new_size: list[int or float] or tuple[int or float]):
         self.__tree_size_precent(self.tree, new_size)
 
         self._image_cache = copy.deepcopy(self.image)
@@ -57,7 +57,7 @@ class Window:
         self._is_changed = True
 
 
-    def __tree_position_precent(self, tree: list):
+    cdef void __tree_position_precent(self, tree: list):
         for key in tree:
             key.rect[0] = int(self.position[0] + key.position[0])
             key.rect[1] = int(self.position[1] + key.position[1])
@@ -65,7 +65,7 @@ class Window:
             if len(key.tree) > 0:
                 self.__tree_position_precent(key.tree)
 
-    def __tree_size_precent(self, tree: list, window_new_size: tuple or list[int]):
+    cdef void __tree_size_precent(self, tree: list, window_new_size: tuple or list[int]):
         for key in tree:
             try:
                 if key.image is not None:
@@ -90,20 +90,20 @@ class Window:
                 if len(key.tree) > 0:
                     self.__tree_size_precent(key.tree, window_new_size)
 
-    def __tree_scroll_vertically(self, tree: list, num: float):
+    cdef __tree_scroll_vertically(self, tree: list, num: float):
         for key in tree:
             key.position[1] += num
             if len(key.tree) > 0:
                 self.__tree_position_precent(key.tree)
 
-    def __tree_scroll_horizontal(self, tree: list, num: float):
+    cdef __tree_scroll_horizontal(self, tree: list, num: float):
         for key in tree:
             key.position[0] += num
             if len(key.tree) > 0:
                 self.__tree_position_precent(key.tree)
 
 
-    def __scroll_run(self):
+    cdef void __scroll_run(self):
 
         if not self.__is_scrolling:
 
@@ -123,7 +123,7 @@ class Window:
             else:
                 self.__is_scrolling = False
 
-    def __drag_run(self):
+    cdef void __drag_run(self):
 
         if not self.__is_scrolling:
 
