@@ -7,9 +7,9 @@ from Cython.Build import cythonize
 #               ]
 
 setup(
-    name="textinput",
-    packages=['textinput'],
-    zip_safe=False,
+    name="guaicore",
+    packages=['guaicore'],
+    zip_safe=True,
 
     ext_modules = cythonize("textinput/*.pyx")
 )
